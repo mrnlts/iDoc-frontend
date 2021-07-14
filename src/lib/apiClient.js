@@ -13,13 +13,13 @@ class ApiClient {
 	}
 
 	signup(user) {
-		const { username, password } = user;
-		return this.apiClient.post('/signup', { username, password }).then(({ data }) => data);
+		const { email, password, name, specialty } = user;
+		return this.apiClient.post('/signup', { email, password, name, specialty }).then(({ data }) => data);
 	}
 
 	login(user) {
-		const { username, password } = user;
-		return this.apiClient.post('/login', { username, password }).then(({ data }) => data);
+		const { email, password } = user;
+		return this.apiClient.post('/login', { email, password }).then(({ data }) => data);
 	}
 
 	logout() {
