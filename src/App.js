@@ -15,9 +15,10 @@ class App extends Component {
 		if (isLoading) {
 			return <div>loading ... </div>;
 		}
+
 		return (
 			<div className="container">
-				<h1>Basic React Authentication</h1>
+				<h1>iDoc</h1>
 				<Navbar />
 				<Switch>
 					<AnonRoute path="/signup" component={Signup} />

@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 
 class Private extends Component {
 	render() {
-		const { email } = this.props.rest.user;
+		const { name, isProfessional } = this.props.rest.user;
 		return (
 			<div>
-				<h1>Welcome {email}</h1>
+				<h1>{isProfessional ? `Welcome, Dr. ${name}` : `Welcome, ${ name }` }</h1>
 			</div>
 		);
 	}

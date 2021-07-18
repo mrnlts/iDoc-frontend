@@ -8,8 +8,12 @@ class ApiClient {
 		});
 	}
 
-	me() {
-		return this.apiClient.get('/whoami').then(response => response.data);
+	profile() {
+		return this.apiClient.get('/patients/profile').then(response => response.data);
+	}
+
+	home() {
+		return this.apiClient.get('/professionals/home').then(response => response.data);
 	}
 
 	signup(user) {

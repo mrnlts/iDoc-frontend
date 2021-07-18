@@ -37,7 +37,7 @@ class AuthProvider extends Component {
 
 	async componentDidMount() {
 		try {
-			const user = await apiClient.me();
+			const user = await apiClient.profile();
 			this.setState({
 				status: 'loggedIn',
 				user,
@@ -77,7 +77,6 @@ class AuthProvider extends Component {
 				user: null,
 			});
 			const user = await apiClient.signup({ email, password });
-			console.log(user);
 			this.setState({
 				status: 'loggedIn',
 				user,
