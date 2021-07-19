@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Link, Route, Switch } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
-import PrivateRoute from './components/PrivateRoute';
+import HomeRoute from './components/HomeRoute';
 import AnonRoute from './components/AnonRoute';
-import Private from './pages/Private';
+import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import About from './pages/About';
@@ -19,13 +19,14 @@ class App extends Component {
 
 		return (
 			<div className="container">
-				<h1>iDoc</h1>
+				<Link to="/"><h1>iDoc</h1></Link>
 				<Navbar />
 				<Switch>
 					<Route path="/about" component={About} />
 					<AnonRoute path="/signup" component={Signup} />
 					<AnonRoute path="/login" component={Login} />
-					<PrivateRoute path="/private" component={Private} />
+					<HomeRoute path="/home" component={Home} />
+					<HomeRoute path="/profile" component={Home} />
 				</Switch>
 			</div>
 		);

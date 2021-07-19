@@ -10,7 +10,7 @@ class Navbar extends Component {
 			<div>
 				{isLoggedIn ? (
 					<>
-						<p>email: {user.email}</p>
+						{user.isPatient ? <Link to="/profile"><button>My profile</button></Link> : ''}
 						<button onClick={logout}>Logout</button>
 					</>
 				) : (
