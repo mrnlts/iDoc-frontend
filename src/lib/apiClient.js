@@ -21,6 +21,10 @@ class ApiClient {
 		return this.apiClient.post('/signup', { email, password, name, specialty }).then(({ data }) => data);
 	}
 
+	updateContactInfo({ email, phoneNr }) {
+		return this.apiClient.put('/patients/profile', { email, phoneNr }).then(({ data }) => data);
+	}
+
 	login(user) {
 		const { email, password } = user;
 		return this.apiClient.post('/login', { email, password }).then(({ data }) => data);

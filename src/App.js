@@ -8,25 +8,26 @@ import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import About from './pages/About';
+import Profile from './pages/Profile';
 import { withAuth } from './providers/AuthProvider';
 
 class App extends Component {
 	render() {
-		const { isLoading } = this.props;
+		const { isLoading, isLoggedIn } = this.props;
 		if (isLoading) {
 			return <div>loading ... </div>;
 		}
 
 		return (
 			<div className="container">
-				<Link to="/"><h1>iDoc</h1></Link>
+				{isLoggedIn ? <Link to="/home"><h1>iDoc</h1></Link> : <Link to="/"><h1>iDoc</h1></Link>}
 				<Navbar />
 				<Switch>
 					<Route path="/about" component={About} />
 					<AnonRoute path="/signup" component={Signup} />
 					<AnonRoute path="/login" component={Login} />
 					<HomeRoute path="/home" component={Home} />
-					<HomeRoute path="/profile" component={Home} />
+					<HomeRoute path="/profile" component={Profile} />
 				</Switch>
 			</div>
 		);

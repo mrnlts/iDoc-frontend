@@ -17,6 +17,7 @@ export const withAuth = Comp => {
 							logout={authProvider.logout}
 							login={authProvider.login}
 							signup={authProvider.signup}
+							updateContactInfo={authProvider.updateContactInfo}
 							{...this.props}
 						/>
 					)}
@@ -89,6 +90,20 @@ class AuthProvider extends Component {
 		}
 	};
 
+	updateContactInfo = async ({ email, phoneNr }) => {
+		try {
+			this.setState({
+				status: 'loading',
+				user: null,
+			});
+			const updatedUser = await apiClient.updateContactInfo({ email, phoneNr });
+			await this.setState({
+				status: 'loggedIn',
+				user: updatedUser,
+			});
+		} catch (e) {}
+	};
+
 	logout = async () => {
 		try {
 			await apiClient.logout();
@@ -112,6 +127,7 @@ class AuthProvider extends Component {
 					login: this.login,
 					signup: this.signup,
 					logout: this.logout,
+					updateContactInfo: this.updateContactInfo,
 				}}
 			>
 				{this.props.children}
