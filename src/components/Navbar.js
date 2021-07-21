@@ -11,6 +11,7 @@ class Navbar extends Component {
 				{isLoggedIn ? (
 					<>
 						{user.isPatient ? <Link to="/profile"><button>My profile</button></Link> : ''}
+						<Link to="/appointments"><button>My appointments</button></Link>
 						<button onClick={logout}>Logout</button>
 					</>
 				) : (

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
+import { withAuth } from './providers/AuthProvider';
 
 import Navbar from './components/Navbar';
 import HomeRoute from './components/HomeRoute';
@@ -9,7 +10,7 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import About from './pages/About';
 import Profile from './pages/Profile';
-import { withAuth } from './providers/AuthProvider';
+import Appointments from './pages/Appointments';
 
 class App extends Component {
 	render() {
@@ -28,6 +29,7 @@ class App extends Component {
 					<AnonRoute path="/login" component={Login} />
 					<HomeRoute path="/home" component={Home} />
 					<HomeRoute path="/profile" component={Profile} />
+					<HomeRoute path="/appointments" component={Appointments} />
 				</Switch>
 			</div>
 		);
