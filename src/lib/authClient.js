@@ -11,7 +11,6 @@ class AuthClient {
 	async profile() {
 		try {
 			const user = await this.authClient.get('/patients/profile');
-			console.log("user from authclient", user.data.email)
 			return user.data
 		} catch(e) {}
 	}
