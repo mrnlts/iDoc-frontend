@@ -1,18 +1,33 @@
 import React, { Component } from 'react';
-
+// import patientClient from '../lib/patientClient';
+import authClient from '../lib/authClient';
 class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: this.props.rest.user.email,
-      phoneNr: this.props.rest.user.phoneNr
+      email: '',
+      phoneNr: '',
+      appointments: [],
+      conditions: []
     }
   }
 
-  handleFormSubmit = event => {
+  async componentDidMount() {
+    const currentUser = await authClient.getMe();
+    const { email, phoneNr, appointments, conditions } = currentUser;
+    this.setState({ email, phoneNr, appointments, conditions });
+  }
+
+  handleFormSubmit = async (event) => {
     event.preventDefault();
-    const { email, phoneNr } = this.state;
-    this.props.rest.updateContactInfo({ email, phoneNr });
+    try {
+      await authClient.updateMe({ email: this.state.email, phoneNr: this.state.phoneNr });
+      return alert("updated!")
+    } catch (e) {
+      console.log(e)
+    } finally {
+      this.props.history.push('/home');
+    }
   };
 
   handleChange = event => {
@@ -22,6 +37,7 @@ class Profile extends Component {
 
   render() {
     const { email, phoneNr } = this.state;
+    
     return (
       <div>
         <h1>Contact info</h1>

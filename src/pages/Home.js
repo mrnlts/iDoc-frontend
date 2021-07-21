@@ -15,7 +15,7 @@ const Home = (props) => {
 				: 
 				<div>
 					<form>
-						<input value="Search patient..."/>
+						<input value="Search patient..." readOnly/>
 						</form>
 					<button>Add new patient</button>
 					</div>}

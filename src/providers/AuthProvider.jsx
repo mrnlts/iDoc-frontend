@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import apiClient from '../lib/apiClient';
+import authClient from '../lib/authClient';
 
 const { Consumer, Provider } = React.createContext();
 
@@ -17,7 +17,6 @@ export const withAuth = Comp => {
 							logout={authProvider.logout}
 							login={authProvider.login}
 							signup={authProvider.signup}
-							updateContactInfo={authProvider.updateContactInfo}
 							{...this.props}
 						/>
 					)}
@@ -31,14 +30,14 @@ class AuthProvider extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			status: 'loading',
+			status: '',
 			user: null,
 		};
 	}
 
 	async componentDidMount() {
 		try {
-			const user = await apiClient.profile();
+			const user = await authClient.profile();
 			this.setState({
 				status: 'loggedIn',
 				user,
@@ -58,7 +57,7 @@ class AuthProvider extends Component {
 				status: 'loading',
 				user: null,
 			});
-			const user = await apiClient.login({ email, password });
+			const user = await authClient.login({ email, password });
 			this.setState({
 				status: 'loggedIn',
 				user,
@@ -77,7 +76,7 @@ class AuthProvider extends Component {
 				status: 'loading',
 				user: null,
 			});
-			const user = await apiClient.signup({ email, password, name, specialty });
+			const user = await authClient.signup({ email, password, name, specialty });
 			this.setState({
 				status: 'loggedIn',
 				user,
@@ -90,23 +89,9 @@ class AuthProvider extends Component {
 		}
 	};
 
-	updateContactInfo = async ({ email, phoneNr }) => {
-		try {
-			this.setState({
-				status: 'loading',
-				user: null,
-			});
-			const updatedUser = await apiClient.updateContactInfo({ email, phoneNr });
-			await this.setState({
-				status: 'loggedIn',
-				user: updatedUser,
-			});
-		} catch (e) {}
-	};
-
 	logout = async () => {
 		try {
-			await apiClient.logout();
+			await authClient.logout();
 			this.setState({
 				status: 'loggedOut',
 				user: null,
@@ -127,7 +112,6 @@ class AuthProvider extends Component {
 					login: this.login,
 					signup: this.signup,
 					logout: this.logout,
-					updateContactInfo: this.updateContactInfo,
 				}}
 			>
 				{this.props.children}
