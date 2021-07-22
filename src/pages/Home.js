@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withAuth } from "../providers/AuthProvider";
 import patientClient from '../lib/patientClient';
+import professionalClient from '../lib/professionalClient';
 
 class Home extends Component {
 	constructor(props) {
@@ -15,13 +16,19 @@ class Home extends Component {
 	
 	async componentDidMount() {
 		const { name, isProfessional } = this.props.rest.user;
-		const appointments = await patientClient.getAppointments();
-		this.setState({name, isProfessional, appointments, isLoading: false})
+		
+		if (!isProfessional) {
+			const appointments = await patientClient.getAppointments();
+			return this.setState({name, isProfessional, appointments, isLoading: false})
+		}
+		const appointments = await professionalClient.home();
+		console.log("professional appointments: ", appointments);
+			return this.setState({name, isProfessional: true, appointments, isLoading: false})
 	}
 
 	render() {
 		const { name, isProfessional, appointments, isLoading } = this.state;
-
+		
 		if (isLoading) {
 			return <div>loading ... </div>;
 		}
