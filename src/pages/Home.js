@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withAuth } from "../providers/AuthProvider";
 import patientClient from '../lib/patientClient';
 import professionalClient from '../lib/professionalClient';
+import { Link } from 'react-router-dom';
 
 class Home extends Component {
 	constructor(props) {
@@ -22,8 +23,7 @@ class Home extends Component {
 			return this.setState({name, isProfessional, appointments, isLoading: false})
 		}
 		const appointments = await professionalClient.home();
-		console.log("professional appointments: ", appointments);
-			return this.setState({name, isProfessional: true, appointments, isLoading: false})
+		return this.setState({name, isProfessional: true, appointments, isLoading: false})
 	}
 
 	render() {
@@ -48,7 +48,7 @@ class Home extends Component {
 						<form>
 							<input value="Search patient..." readOnly />
 						</form>
-						<button>Add new patient</button>
+						<Link to="/addpatient"><button>Add new patient</button></Link>
 					</div>}
 			</div>
 		);

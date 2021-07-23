@@ -28,10 +28,11 @@ class Appointments extends Component {
 		const futureAppointments = appointments.filter((appointment) => moment().isBefore(appointment.appointmentDate));
 		this.setState({ isProfessional, appointments, pastAppointments, futureAppointments, isLoading: false})
 	}
+	// component professionalAppointment o patientAppointment
 
 	render() {
-		const { isProfessional, appointments, pastAppointments, futureAppointments, isLoading } = this.state;
-		console.log(`You have ${appointments.length} appointments`)
+		const { isProfessional, pastAppointments, futureAppointments, isLoading } = this.state;
+		
 		if (isLoading) {
 			return <div>loading ... </div>;
 		}

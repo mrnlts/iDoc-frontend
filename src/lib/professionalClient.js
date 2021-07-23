@@ -16,6 +16,11 @@ class ProfessionalClient {
 		return this.professionalClient.get('/professionals/home').then(response => response.data.appointments);
 	}
 
+	addNewPatient({ email, password, name, phoneNr, birthDate, weight, height, conditions }) {
+		console.log("enter addnewpatient")
+		return this.professionalClient.post('/professionals/add', { email, password, name, phoneNr, birthDate, weight, height, conditions }).then(response => response.data);
+	}
+
 }
 
 const professionalClient = new ProfessionalClient();

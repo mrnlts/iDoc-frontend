@@ -5,12 +5,14 @@ import { withAuth } from './providers/AuthProvider';
 import Navbar from './components/Navbar';
 import HomeRoute from './components/HomeRoute';
 import AnonRoute from './components/AnonRoute';
+import ProfessionalRoute from './components/ProfessionalRoute';
 import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import About from './pages/About';
 import Profile from './pages/Profile';
 import Appointments from './pages/Appointments';
+import AddPatient from './pages/AddPatient';
 
 class App extends Component {
 	render() {
@@ -30,6 +32,7 @@ class App extends Component {
 					<HomeRoute path="/home" component={Home} />
 					<HomeRoute path="/profile" component={Profile} />
 					<HomeRoute path="/appointments" component={Appointments} />
+					<ProfessionalRoute path="/addpatient" component={AddPatient} />
 				</Switch>
 			</div>
 		);
@@ -37,3 +40,4 @@ class App extends Component {
 }
 
 export default withAuth(App);
+// delete professional route - fer privateRoutes (amb login true) - anonroute sense login (about, login, signup)
