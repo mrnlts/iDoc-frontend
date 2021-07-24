@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { withAuth } from "../providers/AuthProvider";
 import patientClient from '../lib/patientClient';
-import professionalClient from '../lib/professionalClient';
+
 import { Link } from 'react-router-dom';
+import authClient from '../lib/authClient';
 
 class Home extends Component {
 	constructor(props) {
@@ -22,7 +23,8 @@ class Home extends Component {
 			const appointments = await patientClient.getAppointments();
 			return this.setState({name, isProfessional, appointments, isLoading: false})
 		}
-		const appointments = await professionalClient.home();
+		const appointments = await authClient.whoami();
+		console.log(appointments)
 		return this.setState({name, isProfessional: true, appointments, isLoading: false})
 	}
 

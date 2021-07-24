@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import professionalClient from '../lib/professionalClient';
 
-class Profile extends Component {
+class ClinicalHistory extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,13 +19,19 @@ class Profile extends Component {
 
   async componentDidMount() {
     const { id } = this.props.match.params;
-    const clinicalHistory = await professionalClient.getClinicalHistory(id);
-    if (clinicalHistory) {
-      const { name, height, weight, conditions } = clinicalHistory.user;
-      const appointments = clinicalHistory.usersAppointments;
-      return this.setState({ isLoading: false, isMyPatient: true, name, height, weight, appointments, conditions });
+    try {
+      const clinicalHistory = await professionalClient.getClinicalHistory(id);
+      if (clinicalHistory) {
+        const { name, height, weight, conditions } = clinicalHistory.user;
+        const appointments = clinicalHistory.usersAppointments;
+        return this.setState({ isLoading: false, isMyPatient: true, name, height, weight, appointments, conditions });
+      }
+    } catch (error) {
+      if (error) {
+        return this.setState({ isLoading: false, isMyPatient: false })
+      }
+      // this.state.props.history.push('/')
     }
-    return this.setState({isLoading: false})
   }
 
   render() {
@@ -38,7 +44,7 @@ class Profile extends Component {
     return (
       <div>
         {isMyPatient ? 
-        <div>
+        (<div>
           <h1>Clinical history</h1>
           <h2>Name:</h2>
           <p>{ name}</p>
@@ -66,10 +72,12 @@ class Profile extends Component {
           })
           }
           </ul>
-        </div>: "Sorry! We can't display this patient's personal info, it looks like this is not your patient."}
+          </div>)
+          :
+          "Sorry! We can't display this patient's personal info, it looks like this is not your patient."}
       </div>
     );
   }
 }
 
-export default Profile;
+export default ClinicalHistory;

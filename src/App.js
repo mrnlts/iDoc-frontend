@@ -34,7 +34,7 @@ class App extends Component {
 					<HomeRoute path="/profile" component={Profile} />
 					<HomeRoute path="/appointments" component={Appointments} />
 					<ProfessionalRoute path="/addpatient" component={AddPatient} />
-					<Route path="/professionals/patients/:id" component={ClinicalHistory} />
+					<Route path="/:id" component={ClinicalHistory} />
 				</Switch>
 			</div>
 		);

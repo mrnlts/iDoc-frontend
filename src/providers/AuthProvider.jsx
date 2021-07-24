@@ -30,14 +30,14 @@ class AuthProvider extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			status: '',
+			status: 'loading',
 			user: null,
 		};
 	}
 
 	async componentDidMount() {
 		try {
-			const user = await authClient.profile();
+			const user = await authClient.whoami();
 			this.setState({
 				status: 'loggedIn',
 				user,
