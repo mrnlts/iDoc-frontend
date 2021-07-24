@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import patientClient from '../lib/patientClient';
+
 import authClient from '../lib/authClient';
 class Profile extends Component {
   constructor(props) {

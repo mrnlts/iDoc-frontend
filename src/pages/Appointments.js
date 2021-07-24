@@ -3,6 +3,7 @@ import moment from 'moment';
 import { withAuth } from "../providers/AuthProvider";
 import patientClient from '../lib/patientClient';
 import professionalClient from '../lib/professionalClient';
+import { Link } from 'react-router-dom';
 
 class Appointments extends Component {
 	constructor(props) {
@@ -62,7 +63,10 @@ class Appointments extends Component {
 							const hour = appointmentDate.split("T")[1].split(":");
 							return <li key={index}>
 								{day} | {hour[0]}:{hour[1]}<br />
-								Patient: {appointment.patient.name}<br /><br /></li>
+								{appointment.patient ? "Patient:" : "Appointment id:"}
+								{appointment.patient ? <Link to={`/${appointment.patient._id}`}>{appointment.patient.name}</Link> : 
+								<Link to={`/${appointment._id}`}>{appointment._id}</Link>}
+								<br /><br /></li>
 						}) : ''} </ul>
 					</div>
 				}
@@ -88,9 +92,13 @@ class Appointments extends Component {
 							const { appointmentDate } = appointment;
 							const day = appointmentDate.split("T")[0];
 							const hour = appointmentDate.split("T")[1].split(":");
+							
 							return <li key={index}>
 								{day} | {hour[0]}:{hour[1]}<br />
-								{appointment.patient ? `Patient: ${appointment.patient.name}` : `Appointment id: ${appointment._id}`}<br /><br /></li>
+								{appointment.patient ? "Patient:" : "Appointment id:"}
+								{appointment.patient ? <Link to={`/${appointment.patient._id}`}>{appointment.patient.name}</Link> : 
+								<Link to={`/${appointment._id}`}>{appointment._id}</Link>}
+								<br /><br /></li>
 						}) : ''} </ul>
 					</div>
 					}

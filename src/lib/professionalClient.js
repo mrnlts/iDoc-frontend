@@ -17,8 +17,18 @@ class ProfessionalClient {
 	}
 
 	addNewPatient({ email, password, name, phoneNr, birthDate, weight, height, conditions }) {
-		console.log("enter addnewpatient")
 		return this.professionalClient.post('/professionals/add', { email, password, name, phoneNr, birthDate, weight, height, conditions }).then(response => response.data);
+	}
+
+	async getClinicalHistory(id) {
+		try {
+			const clinicalHistory = await this.professionalClient.get(`/professionals/patients/${id}`);
+			if (clinicalHistory) {
+				return clinicalHistory.data;
+			}
+		} catch (e) {
+			return null;
+		}
 	}
 
 }

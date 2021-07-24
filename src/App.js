@@ -13,6 +13,7 @@ import About from './pages/About';
 import Profile from './pages/Profile';
 import Appointments from './pages/Appointments';
 import AddPatient from './pages/AddPatient';
+import ClinicalHistory from './pages/ClinicalHistory';
 
 class App extends Component {
 	render() {
@@ -33,6 +34,7 @@ class App extends Component {
 					<HomeRoute path="/profile" component={Profile} />
 					<HomeRoute path="/appointments" component={Appointments} />
 					<ProfessionalRoute path="/addpatient" component={AddPatient} />
+					<Route path="/professionals/patients/:id" component={ClinicalHistory} />
 				</Switch>
 			</div>
 		);
