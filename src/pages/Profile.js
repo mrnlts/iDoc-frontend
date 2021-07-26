@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import authClient from '../lib/authClient';
 class Profile extends Component {
   constructor(props) {
@@ -13,15 +12,16 @@ class Profile extends Component {
   }
 
   async componentDidMount() {
-    const currentUser = await authClient.getMe();
-    const { email, phoneNr, appointments, conditions } = currentUser;
+    const user = await authClient.whoami();
+    const { email, phoneNr, appointments, conditions } = user;
     this.setState({ email, phoneNr, appointments, conditions });
   }
 
   handleFormSubmit = async (event) => {
     event.preventDefault();
+    const { email, phoneNr } = this.state;
     try {
-      await authClient.updateMe({ email: this.state.email, phoneNr: this.state.phoneNr });
+      await authClient.updateMe({ email, phoneNr });
       return alert("updated!")
     } catch (e) {
       console.log(e)

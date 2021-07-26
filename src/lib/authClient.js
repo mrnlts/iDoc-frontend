@@ -8,25 +8,8 @@ class AuthClient {
 		});
 	}	
 	
-	// no guardar el usuario en el estado
-
-	async profile() {
-		try {
-			const user = await this.authClient.get('/patients/whoami');
-			return user.data
-		} catch(e) {}
-	}
-
 	whoami() {
 		return this.authClient.get('/whoami').then(response => response.data);
-	}
-	
-	getMe() {
-		return this.authClient.get('/patients/').then(response => response.data);
-	}
-
-	home() {
-		return this.authClient.get('/professionals/home').then(response => response.data);
 	}
 
 	signup(user) {

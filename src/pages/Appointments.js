@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { withAuth } from "../providers/AuthProvider";
-import patientClient from '../lib/patientClient';
-import professionalClient from '../lib/professionalClient';
+import apiClient from '../lib/apiClient';
 import { Link } from 'react-router-dom';
+import authClient from '../lib/authClient';
 
 class Appointments extends Component {
 	constructor(props) {
@@ -18,17 +18,19 @@ class Appointments extends Component {
 	}
 	
 	async componentDidMount() {
-		const { isProfessional } = this.props.rest.user;
+		const user = await authClient.whoami();
+		const { isProfessional } = user;
 		let appointments;
 		if (isProfessional) {
-			appointments = await professionalClient.getAppointments();
+			appointments = await apiClient.getProfessionalAppointments();
 		} else {
-			appointments = await patientClient.getAppointments();
+			appointments = await apiClient.getPatientAppointments();
 		}
 		const pastAppointments = appointments.filter((appointment) => moment().isAfter(appointment.appointmentDate));
 		const futureAppointments = appointments.filter((appointment) => moment().isBefore(appointment.appointmentDate));
 		this.setState({ isProfessional, appointments, pastAppointments, futureAppointments, isLoading: false})
 	}
+	
 	// component professionalAppointment o patientAppointment
 
 	render() {

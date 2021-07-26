@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Link, Route, Switch } from 'react-router-dom';
+import { Link, Switch } from 'react-router-dom';
 import { withAuth } from './providers/AuthProvider';
 
 import Navbar from './components/Navbar';
-import HomeRoute from './components/HomeRoute';
 import AnonRoute from './components/AnonRoute';
-import ProfessionalRoute from './components/ProfessionalRoute';
+import PrivateRoute from './components/PrivateRoute';
 import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
@@ -18,6 +17,7 @@ import ClinicalHistory from './pages/ClinicalHistory';
 class App extends Component {
 	render() {
 		const { isLoading, isLoggedIn } = this.props;
+		
 		if (isLoading) {
 			return <div>loading ... </div>;
 		}
@@ -27,14 +27,14 @@ class App extends Component {
 				{isLoggedIn ? <Link to="/home"><h1>iDoc</h1></Link> : <Link to="/"><h1>iDoc</h1></Link>}
 				<Navbar />
 				<Switch>
-					<Route path="/about" component={About} />
+					<AnonRoute path="/about" component={About} />
 					<AnonRoute path="/signup" component={Signup} />
 					<AnonRoute path="/login" component={Login} />
-					<HomeRoute path="/home" component={Home} />
-					<HomeRoute path="/profile" component={Profile} />
-					<HomeRoute path="/appointments" component={Appointments} />
-					<ProfessionalRoute path="/addpatient" component={AddPatient} />
-					<Route path="/:id" component={ClinicalHistory} />
+					<PrivateRoute path="/home" component={Home} />
+					<PrivateRoute path="/profile" component={Profile} />
+					<PrivateRoute path="/appointments" component={Appointments} />
+					<PrivateRoute path="/addpatient" component={AddPatient} />
+					<PrivateRoute path="/:id" component={ClinicalHistory} />
 				</Switch>
 			</div>
 		);
@@ -42,4 +42,3 @@ class App extends Component {
 }
 
 export default withAuth(App);
-// delete professional route - fer privateRoutes (amb login true) - anonroute sense login (about, login, signup)

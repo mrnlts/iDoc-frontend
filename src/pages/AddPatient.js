@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withAuth } from "../providers/AuthProvider";
-import professionalClient from "../lib/professionalClient";
+import apiClient from "../lib/apiClient";
 import moment from "moment";
 
 class AddPatient extends Component {
@@ -28,7 +28,7 @@ class AddPatient extends Component {
     height = Number(height);
     conditions = [...conditions];
     try {
-      await professionalClient.addNewPatient({ email, password, name, phoneNr, birthDate, weight, height, conditions });
+      await apiClient.addNewPatient({ email, password, name, phoneNr, birthDate, weight, height, conditions });
       return alert("New patient added!")
     } catch (e) {
       console.log(e)

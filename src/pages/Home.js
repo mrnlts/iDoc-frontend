@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { withAuth } from "../providers/AuthProvider";
-import patientClient from '../lib/patientClient';
-
 import { Link } from 'react-router-dom';
+import apiClient from '../lib/apiClient';
 import authClient from '../lib/authClient';
 
 class Home extends Component {
@@ -17,14 +15,18 @@ class Home extends Component {
 	}
 	
 	async componentDidMount() {
-		const { name, isProfessional } = this.props.rest.user;
-		
-		if (!isProfessional) {
-			const appointments = await patientClient.getAppointments();
-			return this.setState({name, isProfessional, appointments, isLoading: false})
+		try {
+			const user = await authClient.whoami();
+			const { name, isProfessional } = user;
+			if (!isProfessional) {
+				const appointments = await apiClient.getPatientAppointments();
+				return this.setState({ name, isProfessional: false, appointments, isLoading: false })
+			}
+			const appointments = await apiClient.getProfessionalAppointments();
+			return this.setState({ name, isProfessional: true, appointments, isLoading: false })
+		} catch (e) {
+			console.log(e)
 		}
-		const appointments = await authClient.whoami();
-		return this.setState({name, isProfessional: true, appointments, isLoading: false})
 	}
 
 	render() {
@@ -56,4 +58,4 @@ class Home extends Component {
 	}
 }
 
-export default withAuth(Home);
+export default Home;

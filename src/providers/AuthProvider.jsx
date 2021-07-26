@@ -13,10 +13,10 @@ export const withAuth = Comp => {
 							isLoading={authProvider.isLoading}
 							isLoggedIn={authProvider.isLoggedIn}
 							isLoggedOut={authProvider.isLoggedOut}
-							user={authProvider.user}
 							logout={authProvider.logout}
 							login={authProvider.login}
 							signup={authProvider.signup}
+							updateUser={authProvider.updateUser}
 							{...this.props}
 						/>
 					)}
@@ -31,21 +31,18 @@ class AuthProvider extends Component {
 		super(props);
 		this.state = {
 			status: 'loading',
-			user: null,
 		};
 	}
 
 	async componentDidMount() {
 		try {
-			const user = await authClient.whoami();
+			await authClient.whoami();
 			this.setState({
 				status: 'loggedIn',
-				user,
 			});
 		} catch (e) {
 			this.setState({
 				status: 'loggedOut',
-				user: null,
 			});
 			console.log(e);
 		}
@@ -55,17 +52,14 @@ class AuthProvider extends Component {
 		try {
 			this.setState({
 				status: 'loading',
-				user: null,
 			});
-			const user = await authClient.login({ email, password });
+			await authClient.login({ email, password });
 			this.setState({
 				status: 'loggedIn',
-				user,
 			});
 		} catch (e) {
 			this.setState({
 				status: 'loggedOut',
-				user: null,
 			});
 		}
 	};
@@ -74,17 +68,14 @@ class AuthProvider extends Component {
 		try {
 			this.setState({
 				status: 'loading',
-				user: null,
 			});
-			const user = await authClient.signup({ email, password, name, specialty });
+			await authClient.signup({ email, password, name, specialty });
 			this.setState({
 				status: 'loggedIn',
-				user,
 			});
 		} catch (e) {
 			this.setState({
 				status: 'loggedOut',
-				user: null,
 			});
 		}
 	};
@@ -94,13 +85,12 @@ class AuthProvider extends Component {
 			await authClient.logout();
 			this.setState({
 				status: 'loggedOut',
-				user: null,
 			});
 		} catch (e) {}
 	};
 
 	render() {
-		const { user, status } = this.state;
+		const { status } = this.state;
 
 		return (
 			<Provider
@@ -108,7 +98,6 @@ class AuthProvider extends Component {
 					isLoading: status === 'loading',
 					isLoggedIn: status === 'loggedIn',
 					isLoggedOut: status === 'loggedOut',
-					user,
 					login: this.login,
 					signup: this.signup,
 					logout: this.logout,

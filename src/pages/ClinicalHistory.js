@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import professionalClient from '../lib/professionalClient';
+import apiClient from '../lib/apiClient';
 
 class ClinicalHistory extends Component {
   constructor(props) {
@@ -22,7 +22,7 @@ class ClinicalHistory extends Component {
   async componentDidMount() {
     const { id } = this.props.match.params;
     try {
-      const clinicalHistory = await professionalClient.getClinicalHistory(id);
+      const clinicalHistory = await apiClient.getClinicalHistory(id);
       if (clinicalHistory) {
         const { isProfessional, name, height, weight, conditions} = clinicalHistory.user;
         const appointments = clinicalHistory.usersAppointments;
@@ -40,7 +40,7 @@ class ClinicalHistory extends Component {
   handleClick = async() => {
     const { id } = this.props.match.params;
     try {
-      await professionalClient.deletePatient(id);
+      await apiClient.deletePatient(id);
       return alert("Patient has been deleted!")
     } catch (e) {
       console.log(e);
