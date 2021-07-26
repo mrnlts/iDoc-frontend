@@ -24,7 +24,6 @@ class Home extends Component {
 			return this.setState({name, isProfessional, appointments, isLoading: false})
 		}
 		const appointments = await authClient.whoami();
-		console.log(appointments)
 		return this.setState({name, isProfessional: true, appointments, isLoading: false})
 	}
 

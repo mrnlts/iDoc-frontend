@@ -24,6 +24,10 @@ class ProfessionalClient {
 		return this.professionalClient.get(`/professionals/patients/${id}`).then(clinicalHistory => clinicalHistory.data);
 	}
 
+	deletePatient(id){
+		return this.professionalClient.delete(`/professionals/patients/${id}`).then(response => console.log(response));
+	}
+
 }
 
 const professionalClient = new ProfessionalClient();
