@@ -4,6 +4,8 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      height: '',
+      weight: '',
       email: '',
       phoneNr: '',
       appointments: [],
@@ -13,8 +15,8 @@ class Profile extends Component {
 
   async componentDidMount() {
     const user = await authClient.whoami();
-    const { email, phoneNr, appointments, conditions } = user;
-    this.setState({ email, phoneNr, appointments, conditions });
+    const {  height, weight, email, phoneNr, appointments, conditions } = user;
+    this.setState({ height, weight, email, phoneNr, appointments, conditions });
   }
 
   handleFormSubmit = async (event) => {
@@ -36,7 +38,7 @@ class Profile extends Component {
   };
 
   render() {
-    const { email, phoneNr } = this.state;
+    const { height, weight, email, phoneNr, conditions } = this.state;
     
     return (
       <div>
@@ -50,6 +52,20 @@ class Profile extends Component {
           {phoneNr ? <input id="phoneNr" value={phoneNr} onChange={this.handleChange} /> : ''}
           <input type="submit" value="Update" style={{ "display": "block" }} />
         </form>
+        <h1>Your clinical history</h1>
+        <h2>Height:</h2>
+        <p>{height}</p>
+        <h2>Weight:</h2>
+        <p>{weight}</p>
+        <h2>Conditions:</h2>
+        <ul>
+          {conditions.length === 0 ? "No conditions registered yet" : conditions.map((condition, index) => {
+            return <li key={index}>
+              {condition}<br />
+            </li>
+          })
+          }
+        </ul>        
       </div>
     );
   }

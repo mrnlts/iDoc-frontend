@@ -14,8 +14,15 @@ class Navbar extends Component {
 	}
 
 	async componentDidMount() {
-    const user = await authClient.whoami();
-    this.setState({user, isLoading: false});
+		try {
+			const user = await authClient.whoami();
+			if (user) {
+				return this.setState({ user, isLoading: false });
+			}
+		} catch (e) {
+			console.log(e)
+			return this.setState({isLoading: false});
+		}
 	}
 	
 	render() {

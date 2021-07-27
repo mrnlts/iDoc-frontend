@@ -40,7 +40,7 @@ class Home extends Component {
 				<h1>Welcome, {isProfessional ? 'Dr. ' : ''}{name}</h1>
 				{!isProfessional ?
 					<div>
-						<h2>{appointments.length === 0 ? "You have no scheduled appointments at the moment" : "Here are 2 of your upcoming appointments:"}</h2>
+						<h2>{appointments.length === 0 ? "You have no scheduled appointments at the moment" : `Here's ${appointments.length} of your upcoming appointments:`}</h2>
 						<ul> {appointments.length >= 1 ? appointments.slice(0, 2).map((appointment, index) =>
 							<li key={index}>Date: {appointment.appointmentDate} <br />
 								Specialty: {appointment.professional.specialty} <br />
