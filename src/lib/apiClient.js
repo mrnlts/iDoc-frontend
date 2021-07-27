@@ -15,7 +15,11 @@ class ApiClient {
 	deletePatient(id){
 		return this.apiClient.delete(`/professionals/patients/${id}`).then(response => console.log(response));
   }
-     
+
+	getClinicalHistory(id) {
+		return this.apiClient.get(`/professionals/patients/${id}`).then(clinicalHistory => clinicalHistory.data);
+	}
+	
 	getPatientAppointments() {
 		return this.apiClient.get('/patients/appointments').then(response => response.data);
 	}
@@ -24,8 +28,8 @@ class ApiClient {
 		return this.apiClient.get('/professionals/home').then(response => response.data.appointments);
 	}
 
-	getClinicalHistory(id) {
-		return this.apiClient.get(`/professionals/patients/${id}`).then(clinicalHistory => clinicalHistory.data);
+	getCurrentDocs(){
+		return this.apiClient.get('/patients/getdocs').then(response => response.data);
 	}
   
 }
