@@ -21,6 +21,10 @@ class AuthClient {
 		return this.authClient.put('/patients/profile', { email, phoneNr }).then(({ data }) => data);
 	}
 
+	updateClinicalHistory({ id, name, weight, height, conditions }) {
+		return this.authClient.put(`/professionals/patients/${id}`, { name, weight, height, conditions}).then(({ data }) => data);
+	}
+
 	login(user) {
 		const { email, password } = user;
 		return this.authClient.post('/login', { email, password }).then(({ data }) => data);

@@ -93,7 +93,7 @@ class ClinicalHistory extends Component {
           })
           }
         </ul>
-        <Link to="/update"><button>Update patient</button></Link>
+        <Link to={`/${this.props.match.params.id}/edit`}><button>Update patient</button></Link>
         {!isProfessional ? <button onClick={this.handleClick}>Delete patient</button> : ''}
       </div>
     )

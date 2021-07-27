@@ -13,7 +13,7 @@ import Profile from './pages/Profile';
 import Appointments from './pages/Appointments';
 import AddPatient from './pages/AddPatient';
 import ClinicalHistory from './pages/ClinicalHistory';
-
+import EditClinicalHistory from './pages/EditClinicalHistory';
 class App extends Component {
 	render() {
 		const { isLoading, isLoggedIn } = this.props;
@@ -34,6 +34,7 @@ class App extends Component {
 					<PrivateRoute path="/profile" component={Profile} />
 					<PrivateRoute path="/appointments" component={Appointments} />
 					<PrivateRoute path="/addpatient" component={AddPatient} />
+					<PrivateRoute path="/:id/edit" component={EditClinicalHistory} />
 					<PrivateRoute path="/:id" component={ClinicalHistory} />
 				</Switch>
 			</div>
