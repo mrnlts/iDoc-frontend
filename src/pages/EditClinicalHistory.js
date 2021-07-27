@@ -55,6 +55,14 @@ class EditClinicalHistory extends Component {
     return this.setState({ conditions, newCondition: '' });
   }
 
+  deleteCondition = (event) => {
+    event.preventDefault();
+    const { conditions } = this.state;
+    const index = conditions.findIndex((condition) => condition === event.target.parentNode.innerHTML.split("<")[0].trim());
+    conditions.splice(index, 1);
+    return this.setState({ conditions });
+  }
+  
   render() {
     const {  isLoading, name, height, weight, conditions, newCondition } = this.state;
     
@@ -81,9 +89,7 @@ class EditClinicalHistory extends Component {
         <label>Conditions:</label>
         <ul>
           {conditions.length === 0 ? "No conditions registered yet" : conditions.map((condition, index) => {
-            return <li key={index}>
-              {condition}<br />
-            </li>
+            return (condition.length >= 1) ? <li key={index}>{condition}   <span onClick={this.deleteCondition}>|    X</span></li> : ''
           })
           }
           </ul>

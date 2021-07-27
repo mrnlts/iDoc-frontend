@@ -26,7 +26,7 @@ class AddPatient extends Component {
     birthDate = moment(birthDate).toDate();
     weight = Number(weight);
     height = Number(height);
-    conditions = [...conditions];
+    conditions = conditions.split(",");
     try {
       await apiClient.addNewPatient({ email, password, name, phoneNr, birthDate, weight, height, conditions });
       return alert("New patient added!")
