@@ -4,6 +4,7 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isPatient: undefined, 
       height: '',
       weight: '',
       email: '',
@@ -15,8 +16,14 @@ class Profile extends Component {
 
   async componentDidMount() {
     const user = await authClient.whoami();
-    const {  height, weight, email, phoneNr, appointments, conditions } = user;
-    this.setState({ height, weight, email, phoneNr, appointments, conditions });
+    const { isPatient, height, weight, email, phoneNr, appointments, conditions } = user;
+    if (isPatient) {
+      this.setState({
+        isPatient, height, weight, email, phoneNr, appointments, conditions
+      });
+    } else {
+      this.props.history.push('/home');
+    }
   }
 
   handleFormSubmit = async (event) => {
