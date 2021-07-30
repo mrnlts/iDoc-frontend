@@ -39,21 +39,16 @@ class Appointments extends Component {
 	// component professionalAppointment o patientAppointment
 	requestAppointment = (event) => {
 		event.preventDefault();
-		console.log(event.target);
-		console.log("user", this.state.user)
-		// apiClient.requestAppointment({ chosenDoc, patient });
-	}
-
-	handleSubmit = (event) => {
-		event.preventDefault();
-		console.log(event.target)
+		console.log(event);
+		const { _id } = this.state.user;
+		const date = moment(event.target[1].value).toDate();
+		console.log("user", _id, "date", date);
+		// apiClient.requestAppointment({ chosenDoc, patient, date });
 	}
 
   handleChange = event => {
 		const { id, value } = event.target;
-		console.log(id, value)
-    // this.setState({ [id]: value });
-
+    this.setState({ [id]: value });
   };
 
 	render() {
@@ -110,8 +105,9 @@ class Appointments extends Component {
 									Specialty: {appointment.professional.specialty} <br />
 									Professional: {appointment.professional.name}<br /><br /></li>
 							}) : ''} </ul>
+
 							<h2>Request new appointment</h2>
-							<form onSubmit={this.handleSubmit}>
+							<form onSubmit={this.requestAppointment}>
 								<label>Choose your doc:</label>
 								<br />
 								<select>

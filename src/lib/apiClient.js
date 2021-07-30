@@ -25,11 +25,15 @@ class ApiClient {
 	}
 
 	getProfessionalAppointments() {
-		return this.apiClient.get('/professionals/home').then(response => response.data.appointments);
+		return this.apiClient.get('/professionals/appointments').then(response => response.data);
 	}
 
 	getCurrentDocs(){
 		return this.apiClient.get('/patients/getdocs').then(response => response.data);
+	}
+
+	requestAppointment() {
+		
 	}
   
 }
