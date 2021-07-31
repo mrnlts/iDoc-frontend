@@ -32,9 +32,9 @@ class ApiClient {
 		return this.apiClient.get('/patients/getdocs').then(response => response.data);
 	}
 
-	requestAppointment() {
+	// requestAppointment() {
 		
-	}
+	// }
   
 }
 
