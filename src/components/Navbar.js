@@ -41,8 +41,7 @@ class Navbar extends Component {
 		}
 		
 		return (
-			<div className="text-center">
-				<p>Tailwind</p>
+			<div>
 				<FontAwesomeIcon icon={faBars} onClick={ this.handleClick}/>
 				{isLoggedIn ? (
 					<div className={!hideNav ? "hidden" : ""}>
