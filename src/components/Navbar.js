@@ -41,16 +41,16 @@ class Navbar extends Component {
 		}
 		
 		return (
-			<div>
-				<FontAwesomeIcon icon={faBars} onClick={ this.handleClick}/>
+			<div className="flex bg-blue-300">
+				<FontAwesomeIcon icon={faBars} className="text-3xl" onClick={ this.handleClick}/>
 				{isLoggedIn ? (
-					<div className={!hideNav ? "hidden" : ""}>
+					<div className={`${!hideNav ? "hidden" : ""} w-4/5 flex justify-between`}>
 						{user.isPatient ? <Link to="/profile"><button>My profile</button></Link> : ''}
 						<Link to="/appointments"><button>My appointments</button></Link>
 						<button onClick={logout}>Logout</button>
 					</div>
 				) : (
-					<div className={hideNav ? "hidden" : ""}>
+					<div className={`${!hideNav ? "hidden" : ""} w-4/5 flex justify-between`}>
 						<Link to="/login">Login</Link>
 						<Link to="/signup">Signup</Link>
 						<Link to="/about">About</Link>

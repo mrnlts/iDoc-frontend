@@ -25,7 +25,7 @@ class App extends Component {
 		return (
 			<div>		
 				<Navbar />
-				{isLoggedIn ? <Link to="/home"><h1  className="bg-gray-500 w-50">iDoc</h1></Link> : <Link to="/"><h1>iDoc</h1></Link>}
+				{isLoggedIn ? <Link to="/home"><h1>iDoc</h1></Link> : <Link to="/"><h1>iDoc</h1></Link>}
 				<Switch>
 					<AnonRoute path="/about" component={About} />
 					<AnonRoute path="/signup" component={Signup} />
