@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 import authClient from '../lib/authClient';
-
 import { withAuth } from '../providers/AuthProvider';
 
 class Navbar extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			hideNav: true,
 			user: undefined,
 			isLoading: true
 		}
@@ -25,8 +27,13 @@ class Navbar extends Component {
 		}
 	}
 	
+	handleClick = () => {
+		const { hideNav } = this.state;
+		return this.setState({ hideNav: !hideNav });
+	}
+
 	render() {
-		const { user, isLoading } = this.state;
+		const { user, isLoading, hideNav } = this.state;
 		const { isLoggedIn, logout } = this.props;
 		
 		if (isLoading) {
@@ -34,19 +41,21 @@ class Navbar extends Component {
 		}
 		
 		return (
-			<div>
+			<div className="text-center">
+				<p>Tailwind</p>
+				<FontAwesomeIcon icon={faBars} onClick={ this.handleClick}/>
 				{isLoggedIn ? (
-					<>
+					<div className={!hideNav ? "hidden" : ""}>
 						{user.isPatient ? <Link to="/profile"><button>My profile</button></Link> : ''}
 						<Link to="/appointments"><button>My appointments</button></Link>
 						<button onClick={logout}>Logout</button>
-					</>
+					</div>
 				) : (
-					<>
+					<div className={hideNav ? "hidden" : ""}>
 						<Link to="/login">Login</Link>
 						<Link to="/signup">Signup</Link>
 						<Link to="/about">About</Link>
-					</>
+					</div>
 				)}
 			</div>
 		);
