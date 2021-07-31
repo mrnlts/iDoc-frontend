@@ -24,22 +24,24 @@ class Appointments extends Component {
 	async componentDidMount() {
 		const user = await authClient.whoami();
 		const { isProfessional } = user;
-		const docs = await apiClient.getCurrentDocs();
 		let appointments;
 		if (isProfessional) {
 			appointments = await apiClient.getProfessionalAppointments();
+			const pastAppointments = appointments.filter((appointment) => moment().isAfter(appointment.appointmentDate));
+		const futureAppointments = appointments.filter((appointment) => moment().isBefore(appointment.appointmentDate));
+		this.setState({ user, isProfessional, appointments, pastAppointments, futureAppointments, isLoading: false })
 		} else {
+			const docs = await apiClient.getCurrentDocs();
 			appointments = await apiClient.getPatientAppointments();
-		}
 		const pastAppointments = appointments.filter((appointment) => moment().isAfter(appointment.appointmentDate));
 		const futureAppointments = appointments.filter((appointment) => moment().isBefore(appointment.appointmentDate));
 		this.setState({ user, isProfessional, appointments, pastAppointments, futureAppointments, isLoading: false, docs })
+		}
 	}
 	
 	// component professionalAppointment o patientAppointment
 	requestAppointment = (event) => {
 		event.preventDefault();
-		console.log(event);
 		const { _id } = this.state.user;
 		const date = moment(event.target[1].value).toDate();
 		console.log("user", _id, "date", date);
