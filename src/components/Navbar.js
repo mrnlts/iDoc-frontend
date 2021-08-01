@@ -48,14 +48,14 @@ class Navbar extends Component {
 				<FontAwesomeIcon icon={faBars} className="text-3xl" onClick={ this.handleClick}/>
 				{isLoggedIn ? (
 					<div className={`${hideNav ? "hidden" : ""} w-4/5 flex justify-around items-center`}>
-						<Link to={document.referrer} onClick={this.handleClick}>Back</Link>
+						<Link onClick={this.handleClick} to={document.referrer} >Back</Link>
 						{user.isPatient ? <Link to="/profile" onClick={this.handleClick}><button>My profile</button></Link> : ''}
 						<Link to="/appointments" onClick={this.handleClick}><button>My appointments</button></Link>
 						<button onClick={logout}>Logout</button>
 					</div>
 				) : (
 					<div className={`${hideNav ? "hidden" : ""} w-4/5 flex justify-around items-center`}>
-						<Link to={document.referrer}>Back</Link>
+						<Link onClick={this.handleClick} to={document.referrer}>Back</Link>
 						<Link to="/login" onClick={this.handleClick}>Login</Link>
 						<Link to="/signup" onClick={this.handleClick}>Signup</Link>
 						<Link to="/about" onClick={this.handleClick}>About</Link>

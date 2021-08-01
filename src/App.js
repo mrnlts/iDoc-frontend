@@ -25,8 +25,8 @@ class App extends Component {
 		}
 
 		return (
-			<div className="w-screen h-screen">
-				<img src="./background.jpg" className="absolute opacity-50 z-m1 object-cover h-screen w-screen"/>
+			<div className="h-screen">
+				<img src="./background.jpg" className="absolute opacity-50 pt-16 z-m1 object-cover h-screen w-screen"/>
 				<Navbar />
 				<div className="h-full pt-16">
 					<Switch>
