@@ -30,7 +30,6 @@ class App extends Component {
 				<Navbar />
 				<div className="h-full pt-16">
 					<Switch>
-						<AnonRoute path="/" component={Main} isLoggedIn={isLoggedIn} />
 						<AnonRoute path="/about" component={About} />
 						<AnonRoute path="/signup" component={Signup} />
 						<AnonRoute path="/login" component={Login} />
@@ -40,6 +39,7 @@ class App extends Component {
 						<PrivateRoute path="/addpatient" component={AddPatient} />
 						<PrivateRoute path="/:id/edit" component={EditClinicalHistory} />
 						<PrivateRoute path="/:id" component={ClinicalHistory} />
+						<AnonRoute path="/" component={Main} isLoggedIn={isLoggedIn} />
 						</Switch>
 				</div>
 			</div>

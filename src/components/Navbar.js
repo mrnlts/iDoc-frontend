@@ -21,12 +21,12 @@ class Navbar extends Component {
 			if (isLoggedIn) {
 				const user = await authClient.whoami();
 				if (user) {
-					return this.setState({ user, isLoading: false });
+					return this.setState({ user, isLoading: false, hideNav: true });
 				}
 			}
-			return this.setState({isLoading: false})
+			return this.setState({isLoading: false, hideNav: true})
 		} catch (e) {
-			return this.setState({isLoading: false});
+			return this.setState({isLoading: false, hideNav: true});
 		}
 	}
 	
@@ -48,17 +48,17 @@ class Navbar extends Component {
 				<FontAwesomeIcon icon={faBars} className="text-3xl" onClick={ this.handleClick}/>
 				{isLoggedIn ? (
 					<div className={`${hideNav ? "hidden" : ""} w-4/5 flex justify-around items-center`}>
-						<Link to={document.referrer}>Back</Link>
-						{user.isPatient ? <Link to="/profile"><button>My profile</button></Link> : ''}
-						<Link to="/appointments"><button>My appointments</button></Link>
+						<Link to={document.referrer} onClick={this.handleClick}>Back</Link>
+						{user.isPatient ? <Link to="/profile" onClick={this.handleClick}><button>My profile</button></Link> : ''}
+						<Link to="/appointments" onClick={this.handleClick}><button>My appointments</button></Link>
 						<button onClick={logout}>Logout</button>
 					</div>
 				) : (
 					<div className={`${hideNav ? "hidden" : ""} w-4/5 flex justify-around items-center`}>
 						<Link to={document.referrer}>Back</Link>
-						<Link to="/login">Login</Link>
-						<Link to="/signup">Signup</Link>
-						<Link to="/about">About</Link>
+						<Link to="/login" onClick={this.handleClick}>Login</Link>
+						<Link to="/signup" onClick={this.handleClick}>Signup</Link>
+						<Link to="/about" onClick={this.handleClick}>About</Link>
 					</div>
 				)}
 			</div>
