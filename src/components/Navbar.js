@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faCalendar, faPowerOff, faUser } from '@fortawesome/free-solid-svg-icons';
 import authClient from '../lib/authClient';
 import { withAuth } from '../providers/AuthProvider';
 
@@ -44,18 +44,16 @@ class Navbar extends Component {
 		}
 		
 		return (
-			<div className="flex bg-blue-300 p-4 absolute w-full">
-				<FontAwesomeIcon icon={faBars} className="text-3xl" onClick={ this.handleClick}/>
+			<div className="flex bg-blue-300 p-4 absolute w-full ">
+				<FontAwesomeIcon icon={faBars} className={`text-3xl ${!hideNav && "text-white"}`} onClick={ this.handleClick}/>
 				{isLoggedIn ? (
-					<div className={`${hideNav ? "hidden" : ""} w-4/5 flex justify-around items-center`}>
-						<Link onClick={this.handleClick} to={document.referrer} >Back</Link>
-						{user.isPatient ? <Link to="/profile" onClick={this.handleClick}><button>My profile</button></Link> : ''}
-						<Link to="/appointments" onClick={this.handleClick}><button>My appointments</button></Link>
-						<button onClick={logout}>Logout</button>
+					<div className={`${hideNav ? "hidden" : ""} w-full flex justify-around items-center text-white text-xl pl-5`}>
+						{user.isPatient ? <Link to="/profile" onClick={this.handleClick}><button><FontAwesomeIcon icon={ faUser} /></button></Link> : ''}
+						<Link to="/appointments" onClick={this.handleClick}><button><FontAwesomeIcon icon={faCalendar} /></button></Link>
+						<button onClick={logout}><FontAwesomeIcon icon={ faPowerOff} /></button>
 					</div>
 				) : (
-					<div className={`${hideNav ? "hidden" : ""} w-4/5 flex justify-around items-center`}>
-						<Link onClick={this.handleClick} to={document.referrer}>Back</Link>
+					<div className={`${hideNav ? "hidden" : ""} w-4/5 flex justify-around items-center text-white text-xl pl-7`}>
 						<Link to="/login" onClick={this.handleClick}>Log in</Link>
 						<Link to="/signup" onClick={this.handleClick}>Sign up</Link>
 						<Link to="/about" onClick={this.handleClick}>About</Link>
