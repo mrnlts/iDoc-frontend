@@ -56,8 +56,8 @@ class Navbar extends Component {
 				) : (
 					<div className={`${hideNav ? "hidden" : ""} w-4/5 flex justify-around items-center`}>
 						<Link onClick={this.handleClick} to={document.referrer}>Back</Link>
-						<Link to="/login" onClick={this.handleClick}>Login</Link>
-						<Link to="/signup" onClick={this.handleClick}>Signup</Link>
+						<Link to="/login" onClick={this.handleClick}>Log in</Link>
+						<Link to="/signup" onClick={this.handleClick}>Sign up</Link>
 						<Link to="/about" onClick={this.handleClick}>About</Link>
 					</div>
 				)}
