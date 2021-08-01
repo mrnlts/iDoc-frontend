@@ -70,9 +70,10 @@ class Signup extends Component {
           <label>Specialty</label>
           <br />
           <select
+            size="2"
             value={specialty}
             onChange={this.handleDropdown}
-            className="p-2 mb-10 w-full bg-white text-gray-400 rounded-lg shadow-xl"
+            className="p-2 pt-4 mb-10 w-full bg-white text-gray-400 rounded-lg shadow-xl h-20"
           >
             {
               specialtiesArr.map(
