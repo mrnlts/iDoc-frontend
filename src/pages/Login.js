@@ -28,23 +28,39 @@ class Login extends Component {
   render() {
     const { email, password } = this.state;
     return (
+      <div className="flex flex-col h-full justify-evenly items-center">
       <form onSubmit={this.handleFormSubmit}>
-        <label>E-mail:</label>
+          <label>E-mail</label>
+          <br />
         <input
           type="text"
           name="email"
-          value={email}
+            value={email}
+            placeholder="example@gmail.com"
+            className="p-2 mb-3 w-full rounded-lg shadow-xl"
           onChange={this.handleChange}
-        />
-        <label>Password:</label>
+          />
+          <br />
+          <label>Password</label>
+          <br />
         <input
           type="password"
           name="password"
-          value={password}
+            value={password}
+            placeholder="*****************"
+            className="p-2 mb-10 rounded-lg shadow-xl"
           onChange={this.handleChange}
-        />
-        <input type="submit" value="Login" />
-      </form>
+          />
+          <br />
+          <div className="w-full text-center">
+          <input
+            type="submit"
+            value="Login"
+            className="border border-blue-300 bg-blue-300 pt-2 pb-2 rounded-lg w-52 shadow-xl"
+            />
+            </div>
+        </form>
+        </div>
     );
   }
 }
