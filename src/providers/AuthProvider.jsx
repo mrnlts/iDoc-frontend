@@ -36,21 +36,15 @@ class AuthProvider extends Component {
 
 	async componentDidMount() {
 		try {
-			if (this.state.status === 'loggedIn') {
-				await authClient.whoami();
-				this.setState({
-					status: 'loggedIn',
-				});
-			} else {
-				this.setState({
-					status: 'loggedOut',
-				});
-			}
+			await authClient.whoami();
+			this.setState({
+				status: 'loggedIn',
+			});
 		} catch (e) {
+			console.log('error in component did mount', e);
 			this.setState({
 				status: 'loggedOut',
 			});
-			console.log(e);
 		}
 	}
 
