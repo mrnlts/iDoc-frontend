@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { withAuth } from "../providers/AuthProvider";
 import specialtiesArr from '../data';
 class Signup extends Component {
@@ -33,34 +32,49 @@ class Signup extends Component {
     const { email, password, name, specialty } = this.state;
 
     return (
-      <div>
+      <div className="flex flex-col h-full justify-evenly items-center">
         <form onSubmit={this.handleFormSubmit}>
-          <label>Email:</label>
+          <label>Email</label>
+          <br />
           <input
             type="text"
             id="email"
             value={email}
+            placeholder="example@gmail.com"
+            className="p-2 mb-3 w-full rounded-lg shadow-xl"
             onChange={this.handleChange}
           />
           <br />
-          <label>Password:</label>
+          <label>Password</label>
+          <br />
           <input
             type="password"
             id="password"
             value={password}
+            placeholder="*****************"
+            className="p-2 mb-3 rounded-lg shadow-xl"
             onChange={this.handleChange}
           />
           <br />
-          <label>Full name:</label>
+          <label>Full name</label>
+          <br />
           <input
             type="text"
             id="name"
             value={name}
+            placeholder="John Doe"
+            className="p-2 mb-3 rounded-lg shadow-xl"
             onChange={this.handleChange}
           />
           <br />
-          <label>Specialty:</label>
-          <select value={specialty} onChange={this.handleDropdown}>
+          <label>Specialty</label>
+          <br />
+          <select
+            size="2"
+            value={specialty}
+            onChange={this.handleDropdown}
+            className="p-2 pt-4 mb-10 w-full bg-white text-gray-400 rounded-lg shadow-xl h-20"
+          >
             {
               specialtiesArr.map(
                 (elem, index) => {
@@ -69,13 +83,15 @@ class Signup extends Component {
                   )
             }
           </select>
-          <input type="submit" value="Signup" />
           <br />
+          <div className="w-full text-center">
+          <input
+            type="submit"
+            value="Signup"
+            className="border border-blue-300 bg-blue-300 pt-2 pb-2 rounded-lg w-52 shadow-xl"
+            />
+            </div>
         </form>
-        <p>
-          Already have account?
-          <Link to={"/login"}> Login</Link>
-        </p>
       </div>
     );
   }
