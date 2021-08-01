@@ -16,13 +16,16 @@ class Navbar extends Component {
 	}
 
 	async componentDidMount() {
+		const { isLoggedIn } = this.props;
 		try {
-			const user = await authClient.whoami();
-			if (user) {
-				return this.setState({ user, isLoading: false });
+			if (isLoggedIn) {
+				const user = await authClient.whoami();
+				if (user) {
+					return this.setState({ user, isLoading: false });
+				}
 			}
+			return this.setState({isLoading: false})
 		} catch (e) {
-			console.log(e)
 			return this.setState({isLoading: false});
 		}
 	}
@@ -41,16 +44,18 @@ class Navbar extends Component {
 		}
 		
 		return (
-			<div className="flex bg-blue-300">
+			<div className="flex bg-blue-300 p-4 absolute w-full">
 				<FontAwesomeIcon icon={faBars} className="text-3xl" onClick={ this.handleClick}/>
 				{isLoggedIn ? (
-					<div className={`${!hideNav ? "hidden" : ""} w-4/5 flex justify-between`}>
+					<div className={`${hideNav ? "hidden" : ""} w-4/5 flex justify-around items-center`}>
+						<Link to={document.referrer}>Back</Link>
 						{user.isPatient ? <Link to="/profile"><button>My profile</button></Link> : ''}
 						<Link to="/appointments"><button>My appointments</button></Link>
 						<button onClick={logout}>Logout</button>
 					</div>
 				) : (
-					<div className={`${!hideNav ? "hidden" : ""} w-4/5 flex justify-between`}>
+					<div className={`${hideNav ? "hidden" : ""} w-4/5 flex justify-around items-center`}>
+						<Link to={document.referrer}>Back</Link>
 						<Link to="/login">Login</Link>
 						<Link to="/signup">Signup</Link>
 						<Link to="/about">About</Link>
