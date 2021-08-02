@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import moment from "moment";
+
 import { withAuth } from "../providers/AuthProvider";
 import apiClient from "../lib/apiClient";
-import moment from "moment";
 
 class AddPatient extends Component {
   constructor(props) {
@@ -10,30 +11,24 @@ class AddPatient extends Component {
     email: "",
     password: "",
     name: "",
-    phoneNr: undefined,
+    phoneNr: 0,
     birthDate: undefined,
-    weight: undefined,
-    height: undefined,
+    weight: 0,
+    height: 0,
     conditions: [],
   };
   }
 
   handleFormSubmit = async(event) => {
     event.preventDefault();
-    const { email, password, name  } = this.state;
-    let { phoneNr, birthDate, weight, height, conditions } = this.state;
-    phoneNr = Number(phoneNr);
+    const { email, password, name, phoneNr, weight, height } = this.state;
+    let { birthDate, conditions } = this.state;
     birthDate = moment(birthDate).toDate();
-    weight = Number(weight);
-    height = Number(height);
     conditions = conditions.split(",");
     try {
       await apiClient.addNewPatient({ email, password, name, phoneNr, birthDate, weight, height, conditions });
-      return alert("New patient added!")
     } catch (e) {
       console.log(e)
-    } finally {
-      this.props.history.push('/home');
     }
   };
 
@@ -49,7 +44,7 @@ class AddPatient extends Component {
 
   render() {
     const { email, password, name, phoneNr, birthDate, weight, height, conditions } = this.state;
- 
+
     return (
       <div className="flex flex-col h-full justify-between items-center pt-8">
         <form onSubmit={this.handleFormSubmit} className="w-3/4">
@@ -146,6 +141,7 @@ class AddPatient extends Component {
             value={conditions}
             placeholder="Place commas between conditions"
             className="p-2 mb-3 w-full rounded-lg shadow-xl"
+            required
             onChange={this.handleChange}
           />
           <br />
@@ -153,7 +149,7 @@ class AddPatient extends Component {
           <input
             type="submit"
             value="Add patient"
-              className="border border-blue-300 mt-3 bg-blue-300 pt-2 pb-2 rounded-lg w-52 shadow-xl"
+            className="border border-blue-300 mt-3 bg-blue-300 pt-2 pb-2 rounded-lg w-52 shadow-xl"
             />
           </div>
         </form>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Switch } from 'react-router-dom';
 import { withAuth } from './providers/AuthProvider';
-
 import AnonRoute from './components/AnonRoute';
 import PrivateRoute from './components/PrivateRoute';
 
@@ -16,9 +15,11 @@ import Appointments from './pages/Appointments';
 import AddPatient from './pages/AddPatient';
 import ClinicalHistory from './pages/ClinicalHistory';
 import EditClinicalHistory from './pages/EditClinicalHistory';
+
 class App extends Component {
 	render() {
 		const { isLoading, isLoggedIn } = this.props;
+		
 
 		if (isLoading) {
 			return <div>loading ... </div>;
