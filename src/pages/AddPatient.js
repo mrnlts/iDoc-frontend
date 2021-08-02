@@ -10,11 +10,11 @@ class AddPatient extends Component {
     email: "",
     password: "",
     name: "",
-    phoneNr: "",
-    birthDate: "",
-    weight: "",
-    height: "",
-    conditions: "",
+    phoneNr: undefined,
+    birthDate: undefined,
+    weight: undefined,
+    height: undefined,
+    conditions: [],
   };
   }
 
