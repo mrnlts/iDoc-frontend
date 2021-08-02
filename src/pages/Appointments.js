@@ -91,7 +91,7 @@ class Appointments extends Component {
 							return <li key={index} className="mb-3">
 								<FontAwesomeIcon icon={faCalendar}  className="text-gray-500"/>  <span className="font-bold">{day} | {hour[0]}:{hour[1]}</span><br />
 								{appointment.patient ? "Patient: " : "Appointment id: "} 
-								{appointment.patient ? <Link to={`/${appointment.patient._id}`}>{appointment.patient.name} <FontAwesomeIcon icon={faPlusCircle}/></Link> : 
+								{appointment.patient ? <Link to={`/${appointment.patient._id}`} className="cursor-pointer">{appointment.patient.name} <FontAwesomeIcon icon={faPlusCircle} className="text-gray-500"/></Link> : 
 								<Link to={`/${appointment._id}`}>{appointment._id}</Link>}
 								</li>
 						}) : ''} </ul>
@@ -151,7 +151,7 @@ class Appointments extends Component {
 								return <li key={index} className="mb-3">
 									<FontAwesomeIcon icon={faCalendar}  className="text-gray-500"/>  <span className="font-bold">{day} | {hour[0]}:{hour[1]}</span><br />
 									{appointment.patient ? "Patient: " : "Appointment id: "} 
-									{appointment.patient ? <Link to={`/${appointment.patient._id}`}>{appointment.patient.name} <FontAwesomeIcon icon={faPlusCircle}/></Link> : 
+									{appointment.patient ? <Link to={`/${appointment.patient._id}`} className="cursor-pointer">{appointment.patient.name} <FontAwesomeIcon icon={faPlusCircle} className="text-gray-500"/></Link> : 
 									<Link to={`/${appointment._id}`}>{appointment._id}</Link>}
 									</li>
 							}) : ''} </ul>
