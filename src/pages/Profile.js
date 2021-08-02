@@ -48,7 +48,7 @@ class Profile extends Component {
     const { height, weight, email, phoneNr, conditions } = this.state;
     
     return (
-      <div className="">
+      <div>
         <div className="w-full flex flex-col justify-center items-center mt-10 mb-20">
           <p className="text-xl font-bold mb-5">Your clinical history</p>
           <div className="flex justify-between w-52">

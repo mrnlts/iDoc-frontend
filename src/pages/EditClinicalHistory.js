@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import authClient from '../lib/authClient';
 import apiClient from '../lib/apiClient';
+import { faPencilAlt, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class EditClinicalHistory extends Component {
   constructor(props) {
@@ -71,32 +73,35 @@ class EditClinicalHistory extends Component {
     }
     
     return (
-      <div>
-        <h1>Edit clinical history</h1>
-        <form onSubmit={this.handleFormSubmit}>
-        <label>Name:</label>
+      <div className="w-full flex flex-col justify-center items-center mt-5">
+        <span className="text-5xl text-white bg-blue-300 p-5 rounded-full"><FontAwesomeIcon icon={faPencilAlt} /></span>
+        <form onSubmit={this.handleFormSubmit} className="w-3/4">
+        <label>Name</label>
         <br />
-        <input type="text" id="name" value={name} onChange={this.handleChange}/>
+        <input type="text"className="p-2 mb-3 w-full rounded-lg shadow-xl" id="name" value={name} onChange={this.handleChange}/>
         <br />
-        <label>Height:</label>
+        <label>Height</label>
         <br />
-        <input type="number" id="height" value={height} onChange={this.handleChange}/>
+        <input type="number"className="p-2 mb-3 w-full rounded-lg shadow-xl" id="height" value={height} onChange={this.handleChange}/>
         <br />
-        <label>Weight:</label>
+        <label>Weight</label>
         <br />
-        <input value={weight} id="weight" onChange={this.handleChange}/>
+        <input value={weight} className="p-2 mb-3 w-full rounded-lg shadow-xl" id="weight" onChange={this.handleChange}/>
         <br />
-        <label>Conditions:</label>
-        <ul>
+        <label>Conditions</label>
+        <ul className="bg-white p-2 mb-3 w-full rounded-lg shadow-xl">
           {conditions.length === 0 ? "No conditions registered yet" : conditions.map((condition, index) => {
-            return (condition.length >= 1) ? <li key={index}>{condition}   <span onClick={this.deleteCondition}>|    X</span></li> : ''
+            return (condition.length >= 1) ? <li key={index}>{condition}   <span onClick={this.deleteCondition}> <FontAwesomeIcon className="text-gray-500" icon={faTimesCircle} /></span></li> : ''
           })
           }
           </ul>
-          <input type="text" id="newCondition" value={newCondition} onChange={this.handleChange} />
-          <input type="submit" value="Add condition" onClick={this.addCondition} />
-          <br />
-          <input type="submit" value="Update"/>
+          <div className="flex justify-between">
+          <input type="text"className="p-2 w-2/3 rounded-lg shadow-xl" id="newCondition" placeholder="Type new condition" value={newCondition} onChange={this.handleChange} />
+            <input type="submit" className="bg-gray-400 w-1/4 text-sm p-2 rounded-lg shadow-xl" value="Add" onClick={this.addCondition} />
+            </div>
+          <div className="w-full text-center">
+            <input type="submit" className="border border-blue-300 mt-3 bg-blue-300 pt-2 pb-2 rounded-lg w-1/3 shadow-xl" value="Update" />
+          </div>
         </form>
         <br />
       </div>
