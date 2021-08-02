@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import authClient from '../lib/authClient';
-import apiClient from '../lib/apiClient';
 import { faPencilAlt, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import authClient from '../lib/authClient';
+import apiClient from '../lib/apiClient';
 
 class EditClinicalHistory extends Component {
   constructor(props) {
@@ -37,12 +40,9 @@ class EditClinicalHistory extends Component {
     const { name, height, weight, conditions } = this.state;
     try {
       await authClient.updateClinicalHistory({ id, name, weight, height, conditions });
-      return alert("updated!")
     } catch (e) {
       console.log(e)
-    } finally {
-      this.props.history.push('/home');
-    }
+    } 
   };
 
   handleChange = (event) => {
@@ -67,13 +67,35 @@ class EditClinicalHistory extends Component {
   
   render() {
     const {  isLoading, name, height, weight, conditions, newCondition } = this.state;
-    
+    const notify = async () => {
+      await toast.success('Updated!', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      
+    }
 		if (isLoading) {
 			return <div>Loading ... </div>;
     }
     
     return (
       <div className="w-full flex flex-col justify-center items-center mt-5">
+        <ToastContainer
+          position="top-center"
+          autoClose={2000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss={false}
+          draggable
+          pauseOnHover
+        />
         <span className="text-5xl text-white bg-blue-300 p-5 rounded-full"><FontAwesomeIcon icon={faPencilAlt} /></span>
         <form onSubmit={this.handleFormSubmit} className="w-3/4">
         <label>Name</label>
@@ -96,11 +118,26 @@ class EditClinicalHistory extends Component {
           }
           </ul>
           <div className="flex justify-between">
-          <input type="text"className="p-2 w-2/3 rounded-lg shadow-xl" id="newCondition" placeholder="Type new condition" value={newCondition} onChange={this.handleChange} />
-            <input type="submit" className="bg-gray-400 w-1/4 text-sm p-2 rounded-lg shadow-xl" value="Add" onClick={this.addCondition} />
+            <input
+              type="text"
+              className="p-2 w-2/3 rounded-lg shadow-xl"
+              id="newCondition"
+              placeholder="Type new condition"
+              value={newCondition}
+              onChange={this.handleChange}
+            />
+            <input
+              type="submit"
+              className="bg-gray-400 w-1/4 text-sm p-2 rounded-lg shadow-xl"
+              value="Add"
+              onClick={this.addCondition}
+            />
             </div>
           <div className="w-full text-center">
-            <input type="submit" className="border border-blue-300 mt-3 bg-blue-300 pt-2 pb-2 rounded-lg w-1/3 shadow-xl" value="Update" />
+            <input
+              type="submit"
+              className="border border-blue-300 mt-3 bg-blue-300 pt-2 pb-2 rounded-lg w-1/3 shadow-xl"
+              value="Update" onClick={notify} />
           </div>
         </form>
         <br />

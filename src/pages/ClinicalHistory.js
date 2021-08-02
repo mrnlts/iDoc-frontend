@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import apiClient from '../lib/apiClient';
 
@@ -41,7 +43,6 @@ class ClinicalHistory extends Component {
     const { id } = this.props.match.params;
     try {
       await apiClient.deletePatient(id);
-      return alert("Patient has been deleted!")
     } catch (e) {
       console.log(e);
     } finally {
@@ -51,7 +52,20 @@ class ClinicalHistory extends Component {
 
   render() {
     const {  isLoading, isMyPatient, patientExists, isProfessional, name, height, weight, appointments, conditions } = this.state;
-    
+    const notify = async () => {
+      await toast.success('Deleted!', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      await this.handleClick();
+      this.props.history.push('/appointments');
+    };
+
 		if (isLoading) {
 			return <div>Loading ... </div>;
     }
@@ -66,6 +80,17 @@ class ClinicalHistory extends Component {
     
     return (
       <div className="flex flex-col h-full justify-between items-center pt-8 w-full">
+        <ToastContainer
+          position="top-center"
+          autoClose={2000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss={false}
+          draggable
+          pauseOnHover
+        />
         <p className="text-xl font-bold mt-5">Clinical history</p>
         <div className="mt-7 mb-7 border-2 border-blue-300 border-solid rounded-md p-5 w-3/4 bg-white bg-opacity-60 shadow-xl">
           <p className="font-bold">Name</p>
@@ -104,7 +129,7 @@ class ClinicalHistory extends Component {
         </div>
         <div className="flex w-3/4">
           <div className="w-full text-center"><Link to={`/${this.props.match.params.id}/edit`}><button  className="border border-blue-300 bg-blue-300 pt-2 pb-2 mb-2 rounded-lg w-20 shadow-xl">Update</button></Link></div>
-          <div className="w-full text-center">{!isProfessional ? <button onClick={this.handleClick} className="border border-blue-300 bg-blue-300 pt-2 pb-2 mb-2 rounded-lg w-20 shadow-xl">Delete</button> : ''}</div>
+          <div className="w-full text-center">{!isProfessional ? <button className="border border-blue-300 bg-blue-300 pt-2 pb-2 mb-2 rounded-lg w-20 shadow-xl" onClick={notify}>Delete</button> : ''}</div>
         </div>
       </div>
     )
