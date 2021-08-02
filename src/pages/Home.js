@@ -40,12 +40,12 @@ class Home extends Component {
 
 	render() {
 		const { isLoading, name, isProfessional, appointments,  patientQuery } = this.state;
-		console.log(patientQuery);
+		// console.log(patientQuery);
 		if (isLoading) {
 			return <div>loading ... </div>;
 		}
 		return (
-			<div className="flex flex-col w-full h-full justify-center items-center text-center">
+			<div className="flex flex-col w-full h-screen justify-evenly items-center text-center">
 				<div>
 				<span className="text-5xl text-white bg-blue-300 p-5 rounded-full">{isProfessional ? <FontAwesomeIcon icon={faStethoscope} /> : <FontAwesomeIcon icon={faHouseUser} />}</span>
 					<p className="text-xl mt-7 font-bold">Welcome back, {isProfessional ? "Dr. "+name.split(" ")[1] : name.split(" ")[0] }!</p>
