@@ -32,7 +32,7 @@ class Signup extends Component {
     const { email, password, name, specialty } = this.state;
 
     return (
-      <div className="flex flex-col h-full justify-evenly items-center">
+      <div className="flex flex-col h-screen justify-evenly items-center">
         <form onSubmit={this.handleFormSubmit}>
           <label>Email</label>
           <br />
