@@ -49,30 +49,62 @@ class Profile extends Component {
     
     return (
       <div>
-        <h1>Contact info</h1>
-        <form onSubmit={this.handleFormSubmit}>
-          <label>Email: </label>
-          <br />
-          <input id="email" value={email} onChange={this.handleChange} />
-          <br />
-          {phoneNr ? <label>Phone Nr: <br /></label> : ''}
-          {phoneNr ? <input id="phoneNr" value={phoneNr} onChange={this.handleChange} /> : ''}
-          <input type="submit" value="Update" style={{ "display": "block" }} />
-        </form>
-        <h1>Your clinical history</h1>
-        <h2>Height:</h2>
-        <p>{height}</p>
-        <h2>Weight:</h2>
-        <p>{weight}</p>
-        <h2>Conditions:</h2>
-        <ul>
-          {conditions.length === 0 ? "No conditions registered yet" : conditions.map((condition, index) => {
-            return <li key={index}>
-              {condition}<br />
-            </li>
-          })
-          }
-        </ul>        
+        <div className="w-full flex flex-col justify-center items-center mt-10 mb-20">
+          <p className="text-xl font-bold mb-5">Your clinical history</p>
+          <div className="flex justify-between w-52">
+              <div className="w-1/2 pr-1">
+                <label>Height</label>
+                <br />
+                <input
+                  value={height}
+                  className="pt-2 pb-2 pl-1 mb-3 w-full rounded-lg shadow-xl"
+                  readOnly
+              />
+              </div>
+              <div className="w-1/2 pl-2">
+                <label>Weight</label>
+                <br />
+                <input
+                  value={weight}
+                  className="pt-2 pb-2 pl-1 mb-3 w-full rounded-lg shadow-xl"
+                  readOnly
+                />
+                </div>
+          </div>
+          <ul>
+            {conditions.length === 0 ? "No conditions registered yet" : conditions.map((condition, index) => {
+              return <li key={index} className="list-disc">
+                {condition}<br />
+              </li>
+            })
+            }
+            </ul>
+        </div>
+        
+        <div className="w-full flex flex-col justify-center items-center">
+          <p className="text-xl font-bold mb-3">Contact info</p>
+          <form onSubmit={this.handleFormSubmit} className="w-3/4">
+            <label>Email </label>
+            <br />
+              <input
+                id="email"  
+                value={email}
+                  className="p-2 mb-3 w-full rounded-lg shadow-xl"
+                  onChange={this.handleChange}
+                  />
+            <br />
+            {phoneNr ? <label>Phone Nr <br /></label> : ''}
+            {phoneNr ? <input
+              id="phoneNr"
+              value={phoneNr}
+              className="p-2 mb-3 w-full rounded-lg shadow-xl"
+              onChange={this.handleChange}
+            /> : ''}
+            <div className="w-full text-center">
+              <input type="submit" value="Update" className="border border-blue-300 mt-3 bg-blue-300 pt-2 pb-2 rounded-lg w-1/3 shadow-xl" />
+            </div>
+          </form>
+        </div>
       </div>
     );
   }

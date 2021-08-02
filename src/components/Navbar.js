@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faCalendar, faPowerOff, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faCalendar, faHome, faPowerOff, faUser } from '@fortawesome/free-solid-svg-icons';
 import authClient from '../lib/authClient';
 import { withAuth } from '../providers/AuthProvider';
 
@@ -44,11 +44,13 @@ class Navbar extends Component {
 		}
 		
 		return (
-			<div className="flex bg-blue-300 p-4 absolute w-full ">
+			<div className="flex bg-blue-300 p-4 sticky top-0 w-full ">
 				<FontAwesomeIcon icon={faBars} className={`text-3xl ${!hideNav && "text-white"}`} onClick={ this.handleClick}/>
+				<img src="./logo.png" className={`w-16 ml-28 ${!hideNav && "hidden"}`}/>
 				{isLoggedIn ? (
 					<div className={`${hideNav ? "hidden" : ""} w-full flex justify-around items-center text-white text-xl pl-5`}>
-						{user.isPatient ? <Link to="/profile" onClick={this.handleClick}><button><FontAwesomeIcon icon={ faUser} /></button></Link> : ''}
+						<Link to="/home" onClick={this.handleClick}><FontAwesomeIcon icon={faHome} /></Link>
+						{user.isPatient ? <Link to="/profile" onClick={this.handleClick}><button><FontAwesomeIcon icon={faUser} /></button></Link> : ''}
 						<Link to="/appointments" onClick={this.handleClick}><button><FontAwesomeIcon icon={faCalendar} /></button></Link>
 						<button onClick={logout}><FontAwesomeIcon icon={ faPowerOff} /></button>
 					</div>

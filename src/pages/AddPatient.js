@@ -10,11 +10,11 @@ class AddPatient extends Component {
     email: "",
     password: "",
     name: "",
-    phoneNr: "",
-    birthDate: "",
-    weight: "",
-    height: "",
-    conditions: "",
+    phoneNr: undefined,
+    birthDate: undefined,
+    weight: undefined,
+    height: undefined,
+    conditions: [],
   };
   }
 
@@ -51,75 +51,111 @@ class AddPatient extends Component {
     const { email, password, name, phoneNr, birthDate, weight, height, conditions } = this.state;
  
     return (
-      <div>
-        <h1> Add new patient</h1>
-        <form onSubmit={this.handleFormSubmit}>
-          <label>Email:</label>
+      <div className="flex flex-col h-full justify-between items-center pt-8">
+        <form onSubmit={this.handleFormSubmit} className="w-3/4">
+          <label>Email</label>
+          <br />
           <input
             type="text"
             id="email"
             value={email}
+            placeholder="example@gmail.com"
+            className="p-2 mb-3 w-full rounded-lg shadow-xl"
             onChange={this.handleChange}
           />
           <br />
-          <label>Password:</label>
+          <label>Password</label>
+          <br />
           <input
             type="password"
             id="password"
             value={password}
+            placeholder="***************"
+            className="p-2 mb-3 w-full rounded-lg shadow-xl"
             onChange={this.handleChange}
           />
           <br />
-          <label>Full name:</label>
+          <label>Full name</label>
+          <br />
           <input
             type="text"
             id="name"
             value={name}
+            placeholder="John Doe"
+            className="p-2 mb-3 w-full rounded-lg shadow-xl"
             onChange={this.handleChange}
           />
           <br />
-          <label>Phone number:</label>
-          <input
-            type="number"
-            id="phoneNr"
-            value={phoneNr}
-            onChange={this.handleChange}
-          />
+         
+          <div className="flex justify-between w-full">
+            <div className="w-1/2 pr-1">
+              <label>Birth date</label>
+              <br />
+              <input
+                type="date"
+                id="birthDate"
+                value={birthDate}
+                className="pt-2 pb-2 pl-1 mb-3 w-full rounded-lg shadow-xl text-sm  text-gray-400"
+                onChange={this.handleChange}
+                />
+            </div>
+            <div className="w-1/2 pl-2">
+              <label>Phone nr</label>
+              <br />
+              <input
+                type="number"
+                id="phoneNr"
+                value={phoneNr}
+                placeholder="938432565"
+                className="p-2 mb-3 w-full rounded-lg shadow-xl"
+                onChange={this.handleChange}
+              />
+              </div>
+          </div>
+          <div className="flex justify-between w-full">
+            <div className="w-1/2 pr-2">
+              <label>Height</label>
+              <br />
+              <input
+                type="number"
+                id="height"
+                value={height}
+                placeholder="167 cm"
+                className="p-2 mb-3 w-full rounded-lg shadow-xl"
+                onChange={this.handleChange}
+              />
+            </div>
+            <div className="w-1/2 pl-2">
+              <label>Weight</label>
+              <br />
+              <input
+                type="number"
+                id="weight"
+                value={weight}
+                placeholder="64 kg"
+                className="p-2 mb-3 w-full rounded-lg shadow-xl"
+                onChange={this.handleChange}
+                />
+              </div>
+          </div>
+          <label>Conditions</label>
           <br />
-          <label>Birth date:</label>
-          <input
-            type="date"
-            id="birthDate"
-            value={birthDate}
-            onChange={this.handleChange}
-          />
-          <br />
-          <label>Height:</label>
-          <input
-            type="number"
-            id="height"
-            value={height}
-            onChange={this.handleChange}
-          />
-          <br />
-          <label>Weight:</label>
-          <input
-            type="number"
-            id="weight"
-            value={weight}
-            onChange={this.handleChange}
-          />
-          <br />
-          <label>Conditions:</label>
           <input
             type="text"
             id="conditions"
             value={conditions}
+            placeholder="Place commas between conditions"
+            className="p-2 mb-3 w-full rounded-lg shadow-xl"
             onChange={this.handleChange}
           />
           <br />
-          <input type="submit" value="AddPatient" />
-          <br />
+          <div className="w-full text-center">
+          <input
+            type="submit"
+            value="Add patient"
+              className="border border-blue-300 mt-3 bg-blue-300 pt-2 pb-2 rounded-lg w-52 shadow-xl"
+            />
+          </div>
         </form>
       </div>
     );

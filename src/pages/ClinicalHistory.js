@@ -65,36 +65,47 @@ class ClinicalHistory extends Component {
     }
     
     return (
-      <div>
-        <h1>Clinical history</h1>
-        <h2>Name:</h2>
-        <p>{name}</p>
-        <h2>Height:</h2>
-        <p>{height}</p>
-        <h2>Weight:</h2>
-        <p>{weight}</p>
-        <h2>Conditions:</h2>
-        <ul>
-          {conditions.length === 0 ? "No conditions registered yet" : conditions.map((condition, index) => {
-            return <li key={index}>
-              {condition}<br />
-            </li>
-          })
-          }
-        </ul>
-        <h2>Appointment log:</h2>
-        <ul>
-          {appointments.map((appointment, index) => {
-            const { appointmentDate } = appointment;
-            const day = appointmentDate.split("T")[0];
-            return <li key={index}>
-              {day} | Dr. {appointment.professional.name}<br />
-            </li>
-          })
-          }
-        </ul>
-        <Link to={`/${this.props.match.params.id}/edit`}><button>Update patient</button></Link>
-        {!isProfessional ? <button onClick={this.handleClick}>Delete patient</button> : ''}
+      <div className="flex flex-col h-full justify-between items-center pt-8 w-full">
+        <p className="text-xl font-bold mt-5">Clinical history</p>
+        <div className="mt-7 mb-7 border-2 border-blue-300 border-solid rounded-md p-5 w-3/4 bg-white bg-opacity-60 shadow-xl">
+          <p className="font-bold">Name</p>
+          <p>{name}</p>
+          <div className="w-3/4 flex justify-between">
+            <div>
+              <p className="font-bold pt-5">Height</p>
+              <p>{height}</p>
+            </div>
+            <div>
+              <p className="font-bold pt-5">Weight</p>
+              <p>{weight}</p>
+            </div>
+          </div>
+          <p className="font-bold pt-5">Conditions</p>
+          <ul>
+            {conditions.length === 0 ? "No conditions registered yet" : conditions.map((condition, index) => {
+              return <li key={index}>
+                {condition}<br />
+              </li>
+            })
+            }
+          </ul>
+          <p className="font-bold pt-5">Appointment log</p>
+          <ul>
+            {appointments.map((appointment, index) => {
+              const { appointmentDate } = appointment;
+              const day = appointmentDate.split("T")[0];
+              return <li key={index} className="text-sm">
+                <span className="font-bold"> {day} </span>
+                Dr. {appointment.professional.name.split(" ")[1]} (
+                  {appointment.professional.specialty})</li>
+            })
+            }
+            </ul>
+        </div>
+        <div className="flex w-3/4">
+          <div className="w-full text-center"><Link to={`/${this.props.match.params.id}/edit`}><button  className="border border-blue-300 bg-blue-300 pt-2 pb-2 mb-2 rounded-lg w-20 shadow-xl">Update</button></Link></div>
+          <div className="w-full text-center">{!isProfessional ? <button onClick={this.handleClick} className="border border-blue-300 bg-blue-300 pt-2 pb-2 mb-2 rounded-lg w-20 shadow-xl">Delete</button> : ''}</div>
+        </div>
       </div>
     )
   

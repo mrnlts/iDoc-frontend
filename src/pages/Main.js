@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Main = (props) => {
   const { isLoggedIn } = props;
   return (
-    <div className="h-full flex flex-col justify-center items-center ">
+    <div className="h-screen flex flex-col justify-center items-center ">
       <Link to={isLoggedIn ? "/home" : "/"} ><img className="w-52 pb-7 " src="./logo.png" /></Link>
       <p className="pb-10 text-xl text-center">Welcome to your personal <br /> space for digital health</p>
       <div className="flex flex-col h-1/5 justify-around">
