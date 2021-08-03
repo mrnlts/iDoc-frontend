@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import moment from "moment";
+import { toast, ToastContainer } from "react-toastify";
 
 import { withAuth } from "../providers/AuthProvider";
 import apiClient from "../lib/apiClient";
@@ -27,6 +28,25 @@ class AddPatient extends Component {
     conditions = conditions.split(",");
     try {
       await apiClient.addNewPatient({ email, password, name, phoneNr, birthDate, weight, height, conditions });
+      await toast.success('Patient added!', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });  
+      this.setState({
+          email: "",
+          password: "",
+          name: "",
+          phoneNr: 0,
+          birthDate: undefined,
+          weight: 0,
+          height: 0,
+          conditions: [],
+        });
     } catch (e) {
       console.log(e)
     }
@@ -44,9 +64,20 @@ class AddPatient extends Component {
 
   render() {
     const { email, password, name, phoneNr, birthDate, weight, height, conditions } = this.state;
-
+      
     return (
       <div className="flex flex-col h-full justify-between items-center pt-8">
+        <ToastContainer
+          position="top-center"
+          autoClose={2000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss={false}
+          draggable
+          pauseOnHover
+        />
         <form onSubmit={this.handleFormSubmit} className="w-3/4">
           <label>Email</label>
           <br />

@@ -32,6 +32,10 @@ class ApiClient {
 		return this.apiClient.get('/patients/getdocs').then(response => response.data);
 	}
 
+	getMyPatients() {
+		return this.apiClient.get('/professionals/getpatients').then(response => response.data)
+	}
+
 	// requestAppointment() {
 		
 	// }

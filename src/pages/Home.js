@@ -14,7 +14,9 @@ class Home extends Component {
 			isProfessional: '',
 			name: '',
 			appointments: '',
-			patientQuery: ''
+			patientQuery: '',
+			patientsArr: [],
+			patientsShown: [],
 		}
 	}
 	
@@ -27,20 +29,27 @@ class Home extends Component {
 				return this.setState({ name, isProfessional: false, appointments, isLoading: false })
 			}
 			const appointments = await apiClient.getProfessionalAppointments();
-			return this.setState({ name, isProfessional: true, appointments, isLoading: false })
+			const patientsArr = await apiClient.getMyPatients();
+			return this.setState({ name, isProfessional: true, appointments, isLoading: false, patientsArr })
 		} catch (e) {
 			console.log(e)
 		}
 	}
 
 	handleChange = event => {
-    const { value } = event.target;
-    this.setState({ patientQuery: value });
+		const { patientsArr } = this.state;
+		const oldPatients = [...patientsArr];
+		const { value } = event.target;
+		let patientsShown = [];
+		oldPatients.map(patient => patient.name.toLowerCase().includes(value.toLowerCase()) ? patientsShown.push(patient) : null,
+    );
+    patientsShown= value === '' ? [] : patientsShown;
+		this.setState({ patientQuery: value, patientsShown });
   };
 
 	render() {
-		const { isLoading, name, isProfessional, appointments,  patientQuery } = this.state;
-		// console.log(patientQuery);
+		const { isLoading, name, isProfessional, appointments,  patientQuery, patientsShown } = this.state;
+	
 		if (isLoading) {
 			return <div>loading ... </div>;
 		}
@@ -65,12 +74,15 @@ class Home extends Component {
 						</ul>
 					</div>
 					:
-					<div className="mt-7 border border-blue-300">
+					<div className="mt-7 border border-blue-300 ml-0">
 						<form>
 							<FontAwesomeIcon icon={faSearch} className="relative left-7 text-white"/>
-							<input placeholder="Search patient" className="rounded-md w-60 shadow-xl bg-blue-300 p-2 placeholder-white text-white text-center" value={ patientQuery } onChange={this.handleChange} />
+							<input placeholder="Search patient" className="rounded-md w-60 shadow-xl bg-blue-300 p-2 pl-12 placeholder-white text-white" value={ patientQuery } onChange={this.handleChange} />
 						</form>
-						<Link to="/addpatient" ><FontAwesomeIcon icon={ faUserPlus} className="relative left-8 text-white"/><button className="mt-7 rounded-md w-60 shadow-xl bg-blue-300 p-2 text-white text-center">Add new patient</button></Link>
+						<div className="ml-3">
+							{patientsShown.length > 0 ? <div className="bg-white bg-opacity-50 p-2 pl-12 rounded-md w-60 flex flex-col m-auto items-baseline"> {patientsShown.map((patient, index) => <Link to={`/${patient.id}`} key={index}>{patient.name}</Link>)}</div> : ''}
+						</div>
+							<Link to="/addpatient" ><FontAwesomeIcon icon={faUserPlus} className="relative left-8 text-white" /><button className="mt-7 rounded-md w-60 shadow-xl bg-blue-300 p-2 text-white">Add new patient</button></Link>
 					</div>}
 			</div>
 		);
