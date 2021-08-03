@@ -55,7 +55,8 @@ class Appointments extends Component {
   handleChange = event => {
 		const { id, value } = event.target;
     this.setState({ [id]: value });
-  };
+	};
+	
 
 	render() {
 		const { docs, isProfessional, pastAppointments, futureAppointments, isLoading, reqDate } = this.state;
@@ -119,8 +120,8 @@ class Appointments extends Component {
 							<form onSubmit={this.requestAppointment} className="w-3/4">
 								<label>Choose a professional:</label>
 								<br />
-								<select className="p-2 mb-3 w-full bg-white rounded-lg shadow-xl h-10">
-									{docs.map((doc, index) => <option key={index} id="chosenDoc" value={doc.name} onChange={this.handleChange}>Dr. {doc.name.split(" ")[1]} ({ doc.specialty})</option>)}
+								<select className="p-2 mb-3 w-full bg-white rounded-lg shadow-xl h-10" id="chosenDoc" onChange={this.handleChange}>
+									{docs.map((doc, index) => <option key={index} value={doc._id} >Dr. {doc.name.split(" ")[1]} ({ doc.specialty})</option>)}
 								</select>
 								<br />
 								<label>Choose a date:</label>
