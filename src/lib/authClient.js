@@ -9,10 +9,7 @@ class AuthClient {
 	}	
 	
 	whoami() {
-		return this.authClient.get('/whoami').then(response => {
-			console.log(response);
-			return response.data
-		});
+		return this.authClient.get('/whoami').then(response => response.data);
 	}
 
 	signup(user) {

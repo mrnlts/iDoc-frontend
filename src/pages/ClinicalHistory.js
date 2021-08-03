@@ -129,7 +129,7 @@ class ClinicalHistory extends Component {
         </div>
         <div className="flex w-3/4">
           <div className="w-full text-center"><Link to={`/${this.props.match.params.id}/edit`}><button  className="border border-blue-300 bg-blue-300 pt-2 pb-2 mb-2 rounded-lg w-20 shadow-xl">Update</button></Link></div>
-          <div className="w-full text-center">{!isProfessional ? <button className="border border-blue-300 bg-blue-300 pt-2 pb-2 mb-2 rounded-lg w-20 shadow-xl" onClick={notify}>Delete</button> : ''}</div>
+          <div className="w-full text-center"><button className="border border-blue-300 bg-blue-300 pt-2 pb-2 mb-2 rounded-lg w-20 shadow-xl" onClick={notify}>Delete</button></div>
         </div>
       </div>
     )

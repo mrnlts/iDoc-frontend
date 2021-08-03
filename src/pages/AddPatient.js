@@ -49,6 +49,8 @@ class AddPatient extends Component {
         });
     } catch (e) {
       console.log(e)
+    } finally {
+      this.props.history.push('/home');
     }
   };
 

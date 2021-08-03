@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import authClient from '../lib/authClient';
+import { toast, ToastContainer } from "react-toastify";
+
 class Profile extends Component {
   constructor(props) {
     super(props);
@@ -31,7 +33,15 @@ class Profile extends Component {
     const { email, phoneNr } = this.state;
     try {
       await authClient.updateMe({ email, phoneNr });
-      return alert("updated!")
+      await toast.success('Updated!', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     } catch (e) {
       console.log(e)
     } finally {
@@ -49,6 +59,17 @@ class Profile extends Component {
     
     return (
       <div>
+        <ToastContainer
+          position="top-center"
+          autoClose={2000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss={false}
+          draggable
+          pauseOnHover
+        />
         <div className="w-full flex flex-col justify-center items-center mt-10 mb-20">
           <p className="text-xl font-bold mb-5">Your clinical history</p>
           <div className="flex justify-between w-52">
