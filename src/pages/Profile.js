@@ -32,7 +32,6 @@ class Profile extends Component {
     event.preventDefault();
     const { email, phoneNr } = this.state;
     try {
-      await authClient.updateMe({ email, phoneNr });
       await toast.success('Updated!', {
         position: "top-center",
         autoClose: 2000,
@@ -42,6 +41,7 @@ class Profile extends Component {
         draggable: true,
         progress: undefined,
       });
+      await authClient.updateMe({ email, phoneNr });
     } catch (e) {
       console.log(e)
     } finally {

@@ -20,7 +20,7 @@ class Appointments extends Component {
 			futureAppointments: '',
 			reqDate: '',
 			isLoading: true,
-			chosenDoc: '',
+			chosenDoc: undefined,
 			docs: ''
 		}
 	}
@@ -43,13 +43,13 @@ class Appointments extends Component {
 		}
 	}
 	
-	// component professionalAppointment o patientAppointment
 	requestAppointment = (event) => {
 		event.preventDefault();
-		const { _id } = this.state.user;
-		const date = moment(event.target[1].value).toDate();
-		console.log("user", _id, "date", date);
-		// apiClient.requestAppointment({ chosenDoc, patient, date });
+		const { user, docs, chosenDoc } = this.state;
+		const { _id } = user;
+		const professional = chosenDoc === undefined ? docs[0] : chosenDoc;
+		const appointmentDate = moment(event.target[1].value).toDate();
+		apiClient.requestAppointment(appointmentDate, professional, _id);
 	}
 
   handleChange = event => {
@@ -120,7 +120,7 @@ class Appointments extends Component {
 								<label>Choose a professional:</label>
 								<br />
 								<select className="p-2 mb-3 w-full bg-white rounded-lg shadow-xl h-10">
-									{docs.map((doc, index) => <option key={index} id="doc" value={doc.name} onChange={this.handleChange}>Dr. {doc.name.split(" ")[1]} ({ doc.specialty})</option>)}
+									{docs.map((doc, index) => <option key={index} id="chosenDoc" value={doc.name} onChange={this.handleChange}>Dr. {doc.name.split(" ")[1]} ({ doc.specialty})</option>)}
 								</select>
 								<br />
 								<label>Choose a date:</label>

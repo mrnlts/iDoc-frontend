@@ -36,9 +36,9 @@ class ApiClient {
 		return this.apiClient.get('/professionals/getpatients').then(response => response.data)
 	}
 
-	// requestAppointment() {
-		
-	// }
+	requestAppointment(appointmentDate, professional, _id) {
+		return this.apiClient.post('/patients/appointments', {appointmentDate, professional, _id}).then(response => response.data);
+	}
   
 }
 

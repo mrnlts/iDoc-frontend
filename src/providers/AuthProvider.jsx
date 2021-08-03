@@ -41,7 +41,7 @@ class AuthProvider extends Component {
 				status: 'loggedIn',
 			});
 		} catch (e) {
-			console.log('error in component did mount', e);
+			console.log(e);
 			this.setState({
 				status: 'loggedOut',
 			});
