@@ -26,9 +26,9 @@ class ClinicalHistory extends Component {
     try {
       const clinicalHistory = await apiClient.getClinicalHistory(id);
       if (clinicalHistory) {
-        const { isProfessional, name, height, weight, conditions} = clinicalHistory.user;
+        const { name, height, weight, conditions} = clinicalHistory.user;
         const appointments = clinicalHistory.usersAppointments;
-        return this.setState({ isLoading: false, isMyPatient: true, isProfessional, name, height, weight, appointments, conditions });
+        return this.setState({ isLoading: false, isMyPatient: true, name, height, weight, appointments, conditions });
       }
     } catch (error) {
       if (error.toString().split(" ")[6] === "403") {
@@ -51,7 +51,7 @@ class ClinicalHistory extends Component {
   };
 
   render() {
-    const {  isLoading, isMyPatient, patientExists, isProfessional, name, height, weight, appointments, conditions } = this.state;
+    const {  isLoading, isMyPatient, patientExists, name, height, weight, appointments, conditions } = this.state;
     const notify = async () => {
       await toast.success('Deleted!', {
         position: "top-center",
