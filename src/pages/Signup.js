@@ -18,7 +18,11 @@ class Signup extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     const { email, password, name, specialty } = this.state;
-    this.props.signup({ email, password, name, specialty });
+    if (specialty !== "") {
+      return this.props.signup({ email, password, name, specialty });
+    } else {
+      return this.props.signup({email, password, name, specialty: "Anesthesiologist"})
+    }
   };
 
   handleChange = event => {
@@ -36,7 +40,7 @@ class Signup extends Component {
       }
       return this.setState({ password: value, validPassword: false });
     } else {
-      const editvalue = value.replace(/^[a-zA-Z_-]{3,15}$/);
+      const editvalue = value.replace(/^[a-zA-Z]([-']?[a-zA-Z]+)*( [a-zA-Z]([-']?[a-zA-Z]+)*)+$/);
       if (editvalue === "undefined") {
         return this.setState({ name: value, validName: true });
       }
@@ -51,7 +55,7 @@ class Signup extends Component {
 
   render() {
     const { email, validEmail, password, validPassword, name, validName, specialty } = this.state;
-    console.log("valid email? ", this.state.validEmail)
+    
     return (
       <div className="flex flex-col h-screen justify-evenly items-center">
         <form onSubmit={this.handleFormSubmit}>
@@ -61,6 +65,7 @@ class Signup extends Component {
             type="text"
             id="email"
             value={email}
+            required
             placeholder="example@gmail.com"
             className={`p-2 mb-3 w-full rounded-lg border shadow-xl ${validEmail === true ? "text-blue-500 border-blue-500" : validEmail === false ? "text-red-500 border-red-500" : '' }`}
             onChange={this.handleChange}
@@ -72,6 +77,7 @@ class Signup extends Component {
             type="password"
             id="password"
             value={password}
+            required
             placeholder="********"
             className={`p-2 mb-3 w-full rounded-lg border shadow-xl ${validPassword === true ? "text-blue-500 border-blue-500" : validPassword === false ? "text-red-500 border-red-500" : '' }`}
             onChange={this.handleChange}
@@ -84,6 +90,7 @@ class Signup extends Component {
             type="text"
             id="name"
             value={name}
+            required
             placeholder="John Doe"
             className={`p-2 mb-3 rounded-lg border shadow-xl ${validName === true ? "text-blue-500 border-blue-500" : validName === false ? "text-red-500 border-red-500" : '' }`}
             onChange={this.handleChange}
