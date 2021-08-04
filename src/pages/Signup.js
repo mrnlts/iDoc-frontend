@@ -6,8 +6,11 @@ class Signup extends Component {
     super(props)
     this.state = {
     email: "",
+    validEmail: null,
     password: "",
+    validPassword: null,
     name: "",
+    validName: null,
     specialty: ""
   };
   }
@@ -20,7 +23,25 @@ class Signup extends Component {
 
   handleChange = event => {
     const { id, value } = event.target;
-    this.setState({ [id]: value });
+    if (id === "email") {
+      const editvalue = value.replace(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/);
+      if (editvalue === "undefined") {
+        return this.setState({ email: value, validEmail: true });
+      }
+      return this.setState({ email: value, validEmail: false });
+    } else if (id === "password") {
+      const editvalue = value.replace(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/);
+      if (editvalue === "undefined") {
+        return this.setState({ password: value, validPassword: true });
+      }
+      return this.setState({ password: value, validPassword: false });
+    } else {
+      const editvalue = value.replace(/^[a-zA-Z_-]{3,15}$/);
+      if (editvalue === "undefined") {
+        return this.setState({ name: value, validName: true });
+      }
+      return this.setState({ name: value, validName: false });
+    }
   };
 
   handleDropdown = event => {
@@ -29,8 +50,8 @@ class Signup extends Component {
   }
 
   render() {
-    const { email, password, name, specialty } = this.state;
-
+    const { email, validEmail, password, validPassword, name, validName, specialty } = this.state;
+    console.log("valid email? ", this.state.validEmail)
     return (
       <div className="flex flex-col h-screen justify-evenly items-center">
         <form onSubmit={this.handleFormSubmit}>
@@ -41,7 +62,7 @@ class Signup extends Component {
             id="email"
             value={email}
             placeholder="example@gmail.com"
-            className="p-2 mb-3 w-full rounded-lg shadow-xl"
+            className={`p-2 mb-3 w-full rounded-lg border shadow-xl ${validEmail === true ? "text-blue-500 border-blue-500" : validEmail === false ? "text-red-500 border-red-500" : '' }`}
             onChange={this.handleChange}
           />
           <br />
@@ -51,10 +72,11 @@ class Signup extends Component {
             type="password"
             id="password"
             value={password}
-            placeholder="*****************"
-            className="p-2 mb-3 rounded-lg shadow-xl"
+            placeholder="********"
+            className={`p-2 mb-3 w-full rounded-lg border shadow-xl ${validPassword === true ? "text-blue-500 border-blue-500" : validPassword === false ? "text-red-500 border-red-500" : '' }`}
             onChange={this.handleChange}
           />
+          {validPassword === false ? <div className=" w-full text-xs">8 characters long, 1 number and 1 uppercase letter</div> : ''}
           <br />
           <label>Full name</label>
           <br />
@@ -63,7 +85,7 @@ class Signup extends Component {
             id="name"
             value={name}
             placeholder="John Doe"
-            className="p-2 mb-3 rounded-lg shadow-xl"
+            className={`p-2 mb-3 rounded-lg border shadow-xl ${validName === true ? "text-blue-500 border-blue-500" : validName === false ? "text-red-500 border-red-500" : '' }`}
             onChange={this.handleChange}
           />
           <br />
