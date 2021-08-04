@@ -1,23 +1,48 @@
 import React, { Component } from "react";
+import { ToastContainer, toast } from 'react-toastify';
 import { withAuth } from "../providers/AuthProvider";
-
 
 class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      missingEmail: false,
+      missingPassword: false,
     };
   }
 
-  handleFormSubmit = event => {
+  handleFormSubmit = async(event) => {
     event.preventDefault();
     const { email, password } = this.state;
-    this.props.login({
-      email, 
-      password
-    })
+    this.setState({ missingEmail: false, missingPassword: false });
+    const notify = () => toast.error('Please fill in all the fields', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+    if (!email || !password) {
+      if (!email && password) {
+        await notify();
+        return this.setState({ missingEmail: true })
+      } else if (!password && email) {
+        await notify();
+        return this.setState({ missingPassword: true })
+      } else {
+        await notify();
+        return this.setState({missingEmail: true, missingPassword: true})
+      }
+    } else {
+      return this.props.login({
+        email,
+        password
+      })
+    }
   };
 
   handleChange = event => {
@@ -26,40 +51,52 @@ class Login extends Component {
   };
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, missingEmail, missingPassword } = this.state;
     return (
       <div className="flex flex-col h-screen justify-evenly items-center">
-      <form onSubmit={this.handleFormSubmit}>
-          <label>E-mail</label>
-          <br />
-        <input
-          type="text"
-          name="email"
-            value={email}
-            placeholder="example@gmail.com"
-            className="p-2 mb-3 w-full rounded-lg shadow-xl"
-          onChange={this.handleChange}
-          />
-          <br />
-          <label>Password</label>
-          <br />
-        <input
-          type="password"
-          name="password"
-            value={password}
-            placeholder="*****************"
-            className="p-2 mb-10 rounded-lg shadow-xl"
-          onChange={this.handleChange}
-          />
-          <br />
-          <div className="w-full text-center">
+        {missingEmail || missingPassword ?
+          <ToastContainer
+          position="top-center"
+          autoClose={2000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss={false}
+          draggable
+          pauseOnHover
+        /> : ""}
+        <form onSubmit={this.handleFormSubmit}>
+            <label>E-mail</label>
+            <br />
           <input
-            type="submit"
-            value="Login"
-            className="border border-blue-300 bg-blue-300 pt-2 pb-2 rounded-lg w-52 shadow-xl"
+            type="text"
+            name="email"
+              value={email}
+              placeholder="example@gmail.com"
+              className={`p-2 mb-3 w-full rounded-lg border shadow-xl ${ missingEmail ? "text-red-500 border-red-500" : ""} `}
+              onChange={this.handleChange}
             />
-            </div>
-        </form>
+            <br />
+            <label>Password</label>
+            <br />
+          <input
+            type="password"
+            name="password"
+              value={password}
+              placeholder="*****************"
+              className={`p-2 mb-3 w-full rounded-lg border shadow-xl ${ missingPassword ? "text-red-500 border-red-500" : ""} `}
+            onChange={this.handleChange}
+            />
+            <br />
+            <div className="w-full text-center">
+            <input
+              type="submit"
+              value="Login"
+              className="border border-blue-300 bg-blue-300 pt-2 pb-2 rounded-lg w-52 shadow-xl"
+              />
+              </div>
+          </form>
         </div>
     );
   }
