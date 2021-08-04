@@ -44,8 +44,6 @@ class Profile extends Component {
       await authClient.updateMe({ email, phoneNr });
     } catch (e) {
       console.log(e)
-    } finally {
-      this.props.history.push('/home');
     }
   };
 

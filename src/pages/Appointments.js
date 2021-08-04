@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { toast, ToastContainer } from "react-toastify";
 
 import { withAuth } from "../providers/AuthProvider";
 import apiClient from '../lib/apiClient';
@@ -43,13 +44,27 @@ class Appointments extends Component {
 		}
 	}
 	
-	requestAppointment = (event) => {
+	requestAppointment = async (event) => {
 		event.preventDefault();
-		const { user, docs, chosenDoc } = this.state;
-		const { _id } = user;
-		const professional = chosenDoc === undefined ? docs[0] : chosenDoc;
-		const appointmentDate = moment(event.target[1].value).toDate();
-		apiClient.requestAppointment(appointmentDate, professional, _id);
+		try {
+			await toast.success('Appointment requested!', {
+				position: "top-center",
+				autoClose: 2000,
+				hideProgressBar: true,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
+			const { user, docs, chosenDoc } = this.state;
+			const { _id } = user;
+			const professional = chosenDoc === undefined ? docs[0] : chosenDoc;
+			const appointmentDate = moment(event.target[1].value).toDate();
+			await apiClient.requestAppointment(appointmentDate, professional, _id);
+			location.reload();
+		} catch (e) {
+			console.log(e)
+		} 
 	}
 
   handleChange = event => {
@@ -66,6 +81,17 @@ class Appointments extends Component {
 		}
 		return (
 			<div className="flex flex-col h-full justify-between items-center pt-8">
+				<ToastContainer
+          position="top-center"
+          autoClose={2000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss={false}
+          draggable
+          pauseOnHover
+        />
 				<span className="text-5xl text-white bg-blue-300 p-5 rounded-full"><FontAwesomeIcon icon={faCalendar} /></span>
 				<p className="text-xl font-bold mt-5">My future appointments</p>
 				{!isProfessional ?

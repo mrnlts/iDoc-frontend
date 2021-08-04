@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import apiClient from '../lib/apiClient';
+import ErrorPage from './ErrorPage';
 
 class ClinicalHistory extends Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class ClinicalHistory extends Component {
       height: '',
       weight: '',
       appointments: [],
-      conditions: []
+      conditions: [],
     }
   }
 
@@ -33,7 +34,7 @@ class ClinicalHistory extends Component {
     } catch (error) {
       if (error.toString().split(" ")[6] === "403") {
         return this.setState({ isLoading: false, isMyPatient: false })
-      } else if (error.toString().split(" ")[6] === "422") {
+      } else {
         return this.setState({ isLoading: false, patientExists: false })
       }
     }
@@ -45,8 +46,6 @@ class ClinicalHistory extends Component {
       await apiClient.deletePatient(id);
     } catch (e) {
       console.log(e);
-    } finally {
-      this.props.history.push('/appointments');
     }
   };
 
@@ -63,7 +62,7 @@ class ClinicalHistory extends Component {
         progress: undefined,
       });
       await this.handleClick();
-      this.props.history.push('/appointments');
+      return this.setState({patientExists: false})
     };
 
 		if (isLoading) {
@@ -71,7 +70,7 @@ class ClinicalHistory extends Component {
     }
     
     if (!patientExists) {
-      return <div>Patient does not exist </div>;
+      return <ErrorPage />;
     }
 
     if (!isMyPatient) {
@@ -118,11 +117,15 @@ class ClinicalHistory extends Component {
           <ul>
             {appointments.map((appointment, index) => {
               const { appointmentDate } = appointment;
-              const day = appointmentDate.split("T")[0];
-              return <li key={index} className="text-sm">
-                <span className="font-bold"> {day} </span>
-                Dr. {appointment.professional.name.split(" ")[1]} (
+              if (appointmentDate) {
+                const day = appointmentDate.split("T")[0];
+                return <li key={index} className="text-sm">
+                  <span className="font-bold"> {day} </span>
+                  Dr. {appointment.professional.name.split(" ")[1]} (
                   {appointment.professional.specialty})</li>
+              } else {
+                return null
+              }
             })
             }
             </ul>
