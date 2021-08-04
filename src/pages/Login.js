@@ -17,7 +17,10 @@ class Login extends Component {
     event.preventDefault();
     const { email, password } = this.state;
     this.setState({ missingEmail: false, missingPassword: false });
-    const notify = () => toast.error('Please fill in all the fields', {
+ 
+    if (!email || !password) {
+      if (!email && password) {
+        toast.error('Please fill in all the fields', {
           position: "top-center",
           autoClose: 2000,
           hideProgressBar: true,
@@ -26,15 +29,28 @@ class Login extends Component {
           draggable: true,
           progress: undefined,
         });
-    if (!email || !password) {
-      if (!email && password) {
-        await notify();
         return this.setState({ missingEmail: true })
       } else if (!password && email) {
-        await notify();
+        toast.error('Please fill in all the fields', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
         return this.setState({ missingPassword: true })
       } else {
-        await notify();
+        toast.error('Please fill in all the fields', {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
         return this.setState({missingEmail: true, missingPassword: true})
       }
     } else {

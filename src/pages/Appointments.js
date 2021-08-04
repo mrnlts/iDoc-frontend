@@ -168,7 +168,7 @@ class Appointments extends Component {
 					)
 					:
 					(
-						<div className="mt-7 border-2 border-blue-300 border-solid rounded-md p-5 w-3/4 bg-white bg-opacity-60 shadow-xl">
+						<div className="mt-7 mb-7 border-2 border-blue-300 border-solid rounded-md p-5 w-3/4 bg-white bg-opacity-60 shadow-xl">
 							<h2>{pastAppointments.length === 0 ? "You have no scheduled appointments" : ""}</h2>
 							<ul> {pastAppointments.length >= 1 ? pastAppointments.map((appointment, index) => {
 								const { appointmentDate } = appointment;
