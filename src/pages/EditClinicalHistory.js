@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import authClient from '../lib/authClient';
 import apiClient from '../lib/apiClient';
+import Button from '../components/Button';
 
 class EditClinicalHistory extends Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class EditClinicalHistory extends Component {
       height: '',
       weight: '',
       conditions: [],
-      newCondition: ''
+      newCondition: '',
     }
   }
 
@@ -34,7 +35,7 @@ class EditClinicalHistory extends Component {
     }
   }
 
-  handleFormSubmit = async (event) => {
+    handleFormSubmit = async (event) => {
     event.preventDefault();
     const { id } = this.props.match.params;
     const { name, height, weight, conditions } = this.state;
@@ -97,7 +98,7 @@ class EditClinicalHistory extends Component {
           pauseOnHover
         />
         <span className="text-5xl text-white bg-blue-300 p-5 rounded-full"><FontAwesomeIcon icon={faPencilAlt} /></span>
-        <form onSubmit={this.handleFormSubmit} className="w-3/4">
+        <form onSubmit={this.handleFormSubmit} className="w-3/4" encType="multipart/form-data">
         <label>Name</label>
         <br />
         <input type="text"className="p-2 mb-3 w-full rounded-lg shadow-xl" id="name" value={name} onChange={this.handleChange}/>
@@ -126,18 +127,10 @@ class EditClinicalHistory extends Component {
               value={newCondition}
               onChange={this.handleChange}
             />
-            <input
-              type="submit"
-              className="bg-gray-400 w-1/4 text-sm p-2 rounded-lg shadow-xl"
-              value="Add"
-              onClick={this.addCondition}
-            />
+            <Button input black gray small clickAction={ this.addCondition}>Add</Button>
             </div>
-          <div className="w-full text-center">
-            <input
-              type="submit"
-              className="border border-blue-300 mt-3 bg-blue-300 pt-2 pb-2 rounded-lg w-1/3 shadow-xl"
-              value="Update" onClick={notify} />
+          <div className="w-full text-center mt-7">
+            <Button input black clickAction={notify} />
           </div>
         </form>
         <br />

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import authClient from '../lib/authClient';
 import { toast, ToastContainer } from "react-toastify";
+import Button from '../components/Button';
 
 class Profile extends Component {
   constructor(props) {
@@ -120,7 +121,7 @@ class Profile extends Component {
               onChange={this.handleChange}
             /> : ''}
             <div className="w-full text-center">
-              <input type="submit" value="Update" className="border border-blue-300 mt-3 bg-blue-300 pt-2 pb-2 rounded-lg w-1/3 shadow-xl" />
+              <Button black input>Update</Button>
             </div>
           </form>
         </div>

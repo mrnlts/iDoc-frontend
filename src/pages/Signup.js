@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withAuth } from "../providers/AuthProvider";
 import specialtiesArr from '../data';
+import Button from "../components/Button";
 class Signup extends Component {
   constructor(props) {
     super(props)
@@ -114,11 +115,7 @@ class Signup extends Component {
           </select>
           <br />
           <div className="w-full text-center">
-          <input
-            type="submit"
-            value="Signup"
-            className="border border-blue-300 bg-blue-300 pt-2 pb-2 rounded-lg w-52 shadow-xl"
-            />
+          <Button input>Signup</Button>
             </div>
         </form>
       </div>

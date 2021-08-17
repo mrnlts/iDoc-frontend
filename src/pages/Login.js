@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import { withAuth } from "../providers/AuthProvider";
+import Button from "../components/Button";
 
 class Login extends Component {
   constructor(props) {
@@ -106,11 +107,7 @@ class Login extends Component {
             />
             <br />
             <div className="w-full text-center">
-            <input
-              type="submit"
-              value="Login"
-              className="border border-blue-300 bg-blue-300 pt-2 pb-2 rounded-lg w-52 shadow-xl"
-              />
+            <Button input>Log in</Button>
               </div>
           </form>
         </div>

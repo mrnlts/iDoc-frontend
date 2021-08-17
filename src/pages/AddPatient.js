@@ -4,6 +4,7 @@ import { toast, ToastContainer } from "react-toastify";
 
 import { withAuth } from "../providers/AuthProvider";
 import apiClient from "../lib/apiClient";
+import Button from "../components/Button";
 
 class AddPatient extends Component {
   constructor(props) {
@@ -208,12 +209,7 @@ class AddPatient extends Component {
           />
           <br />
           <div className="w-full text-center">
-          <input
-            type="submit"
-            value="Add patient"
-              className="border border-blue-300 mt-3 bg-blue-300 pt-2 pb-2 rounded-lg w-52 shadow-xl"
-              
-            />
+            <Button input>Add patient</Button>
           </div>
         </form>
       </div>

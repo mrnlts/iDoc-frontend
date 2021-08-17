@@ -5,6 +5,7 @@ import { faHouseUser, faSearch, faStethoscope, faUserPlus, faCalendar } from '@f
 
 import apiClient from '../lib/apiClient';
 import authClient from '../lib/authClient';
+import Button from '../components/Button';
 
 class Home extends Component {
 	constructor(props) {
@@ -82,7 +83,7 @@ class Home extends Component {
 						<div className="ml-3">
 							{patientsShown.length > 0 ? <div className="bg-white bg-opacity-50 p-2 pl-12 rounded-md w-60 flex flex-col m-auto items-baseline"> {patientsShown.map((patient, index) => <Link to={`/${patient.id}`} key={index}>{patient.name}</Link>)}</div> : ''}
 						</div>
-							<Link to="/addpatient" ><FontAwesomeIcon icon={faUserPlus} className="relative left-8 text-white" /><button className="mt-7 rounded-md w-60 shadow-xl bg-blue-300 p-2 text-white">Add new patient</button></Link>
+							<Link to="/addpatient" ><FontAwesomeIcon icon={faUserPlus} className="relative left-8 text-white mt-7" /><Button big>Add new patient</Button></Link>
 					</div>}
 			</div>
 		);

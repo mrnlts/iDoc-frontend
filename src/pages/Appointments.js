@@ -8,6 +8,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { withAuth } from "../providers/AuthProvider";
 import apiClient from '../lib/apiClient';
 import authClient from '../lib/authClient';
+import Button from '../components/Button';
 
 
 class Appointments extends Component {
@@ -161,7 +162,7 @@ class Appointments extends Component {
 								/>
 								<br />
 								<div className="w-full text-center">
-									<input type="submit" className="border border-blue-300 bg-blue-300 pt-2 pb-2 mb-2 rounded-lg w-52 shadow-xl" value="Request appointment" />
+									<Button input black>Request appointment</Button>
 									</div>
 							</form>		
 						</div>
