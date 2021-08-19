@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import { withAuth } from "../providers/AuthProvider";
 import Button from "../components/Button";
+import FormInput from "../components/FormInput";
 
 class Login extends Component {
   constructor(props) {
@@ -63,8 +64,9 @@ class Login extends Component {
   };
 
   handleChange = event => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
+    const { id, value } = event.target;
+    this.setState({ [id]: value });
+    console.log(this.state)
   };
 
   render() {
@@ -83,34 +85,16 @@ class Login extends Component {
           draggable
           pauseOnHover
         /> : ""}
-        <form onSubmit={this.handleFormSubmit}>
-            <label>E-mail</label>
-            <br />
-          <input
-            type="text"
-            name="email"
-              value={email}
-              placeholder="example@gmail.com"
-              className={`p-2 mb-3 w-full rounded-lg border shadow-xl ${ missingEmail ? "text-red-500 border-red-500" : ""} `}
-              onChange={this.handleChange}
-            />
-            <br />
-            <label>Password</label>
-            <br />
-          <input
-            type="password"
-            name="password"
-              value={password}
-              placeholder="*****************"
-              className={`p-2 mb-3 w-full rounded-lg border shadow-xl ${ missingPassword ? "text-red-500 border-red-500" : ""} `}
-            onChange={this.handleChange}
-            />
-            <br />
-            <div className="w-full text-center">
+        <form onSubmit={this.handleFormSubmit} className="w-4/5">
+          <label>E-mail</label>
+          <FormInput value={email} missingValue={ missingEmail} valid changeAction={this.handleChange}>email</FormInput>
+          <label>Password</label>
+          <FormInput value={password} missingValue={ missingPassword} valid changeAction={this.handleChange}>password</FormInput>
+          <div className="w-full text-center mt-7">
             <Button input>Log in</Button>
-              </div>
-          </form>
-        </div>
+          </div>
+        </form>
+      </div>
     );
   }
 }
