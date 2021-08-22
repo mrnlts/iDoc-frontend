@@ -19,7 +19,6 @@ import EditClinicalHistory from './pages/EditClinicalHistory';
 class App extends Component {
 	render() {
 		const { isLoading, isLoggedIn } = this.props;
-		
 
 		if (isLoading) {
 			return <div>loading ... </div>;
@@ -27,9 +26,9 @@ class App extends Component {
 
 		return (
 			<div className="h-screen">
-				<img src="./background.jpg" className="absolute opacity-50 z-m1 object-cover h-screen w-screen"/>
+				<img src="./background.jpg" className="fixed opacity-50 z-m1 object-cover h-screen w-screen"/>
 				<Navbar />
-				<div>
+				<div className="h-5/6 mt-10">
 					<Switch>
 						<AnonRoute path="/about" component={About} />
 						<AnonRoute path="/signup" component={Signup} />

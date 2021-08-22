@@ -141,7 +141,7 @@ class AddPatient extends Component {
           <FormInput value={conditions} placeholder={"Place commas between conditions"} changeAction={this.handleChange}>conditions</FormInput>
 
           <div className="w-full text-center">
-            <Button input>Add patient</Button>
+            <Button black input>Add patient</Button>
           </div>
         </form>
       </div>

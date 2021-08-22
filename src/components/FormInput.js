@@ -28,7 +28,7 @@ class FormInput extends Component {
     
     return <div>
       <input
-        type={id === "email" ? "text" : id === "password" ? "password" : id === "birthDate" ? "date" : id === "phoneNr" || id === "height" || id === "weight" ? "number" : "text"}
+        type={id === "email" ? "text" : id === "password" ? "password" : id === "birthDate" || id === "reqDate" ? "date" : id === "phoneNr" || id === "height" || id === "weight" ? "number" : "text"}
         id={id}
         value={value}
         placeholder={placeholder}

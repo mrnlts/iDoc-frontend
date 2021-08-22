@@ -9,6 +9,7 @@ import { withAuth } from "../providers/AuthProvider";
 import apiClient from '../lib/apiClient';
 import authClient from '../lib/authClient';
 import Button from '../components/Button';
+import FormInput from '../components/FormInput';
 
 
 class Appointments extends Component {
@@ -151,19 +152,13 @@ class Appointments extends Component {
 									{docs.map((doc, index) => <option key={index} value={doc._id} >Dr. {doc.name.split(" ")[1]} ({ doc.specialty})</option>)}
 								</select>
 								<br />
+
 								<label>Choose a date:</label>
-								<br />
-								<input
-									type="date"
-									id="reqDate"
-									value={reqDate}
-									className="p-2 mb-5 w-full bg-white rounded-lg shadow-xl h-10"
-									onChange={this.handleChange}
-								/>
-								<br />
-								<div className="w-full text-center">
+								<FormInput value={reqDate} changeAction={this.handleChange}>reqDate</FormInput>
+								
+								<div className="w-full text-center mb-7">
 									<Button input black>Request appointment</Button>
-									</div>
+								</div>
 							</form>		
 						</div>
 					)
