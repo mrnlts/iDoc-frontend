@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import authClient from '../lib/authClient';
 import { toast, ToastContainer } from "react-toastify";
 import Button from '../components/Button';
+import FormInput from '../components/FormInput';
 
 class Profile extends Component {
   constructor(props) {
@@ -72,25 +73,21 @@ class Profile extends Component {
         <div className="w-full flex flex-col justify-center items-center mt-10 mb-20">
           <p className="text-xl font-bold mb-5">Your clinical history</p>
           <div className="flex justify-between w-52">
-              <div className="w-1/2 pr-1">
+              <div className="w-1/2 pr-1 text-center">
                 <label>Height</label>
-                <br />
-                <input
-                  value={height}
-                  className="pt-2 pb-2 pl-1 mb-3 w-full rounded-lg shadow-xl"
-                  readOnly
-              />
-              </div>
-              <div className="w-1/2 pl-2">
-                <label>Weight</label>
-                <br />
-                <input
-                  value={weight}
-                  className="pt-2 pb-2 pl-1 mb-3 w-full rounded-lg shadow-xl"
-                  readOnly
-                />
+                <div className="pt-2 pb-2 bg-gray-200 pl-1 mb-3 w-full rounded-lg shadow-xl">
+                  {height} cm
                 </div>
+              </div>
+            
+              <div className="w-1/2 pl-2 text-center">
+                <label>Weight</label>
+                <div className="pt-2 pb-2 bg-gray-200 pl-1 mb-3 w-full rounded-lg shadow-xl">
+                  {weight} kg
+                </div>
+              </div>
           </div>
+          
           <ul>
             {conditions.length === 0 ? "No conditions registered yet" : conditions.map((condition, index) => {
               return <li key={index} className="list-disc">
@@ -105,21 +102,10 @@ class Profile extends Component {
           <p className="text-xl font-bold mb-3">Contact info</p>
           <form onSubmit={this.handleFormSubmit} className="w-3/4">
             <label>Email </label>
-            <br />
-              <input
-                id="email"  
-                value={email}
-                  className="p-2 mb-3 w-full rounded-lg shadow-xl"
-                  onChange={this.handleChange}
-                  />
-            <br />
+            <FormInput black value={email} changeAction={this.handleChange}>email</FormInput>
+
             {phoneNr ? <label>Phone Nr <br /></label> : ''}
-            {phoneNr ? <input
-              id="phoneNr"
-              value={phoneNr}
-              className="p-2 mb-3 w-full rounded-lg shadow-xl"
-              onChange={this.handleChange}
-            /> : ''}
+            {phoneNr ? <FormInput black value={phoneNr} changeAction={this.handleChange}>phoneNr</FormInput> : ''}
             <div className="w-full text-center">
               <Button black input>Update</Button>
             </div>
