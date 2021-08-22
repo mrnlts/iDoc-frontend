@@ -11,9 +11,9 @@ class FormInput extends Component {
   }
 
   async componentDidMount () {
-    const { children, missingValue } = this.props;
+    const { children, missingValue, value } = this.props;
     const id = children;
-    await this.setState({ id, missingValue });
+    await this.setState({ id, missingValue, value });
   }
 
   handleChange = event => {
@@ -24,15 +24,15 @@ class FormInput extends Component {
   
   render() {
     const { id, value, missingValue } = this.state;
-    const { valid, placeholder } = this.props;
+    const { valid, placeholder, black, semi } = this.props;
     
-    return <div>
+    return <div className={semi ? "w-2/3": ""}>
       <input
         type={id === "email" ? "text" : id === "password" ? "password" : id === "birthDate" || id === "reqDate" ? "date" : id === "phoneNr" || id === "height" || id === "weight" ? "number" : "text"}
         id={id}
         value={value}
         placeholder={placeholder}
-        className={`mb-3 w-full rounded-lg border shadow-xl ${id === "birthDate" || id === "phoneNr" || id === "height" || id === "weight" ? "text-gray-400" : ""} ${id === "birthDate" ? "text-sm pl-1 pb-2 pt-2" : "p-2"} ${missingValue ? "text-red-500 border-red-500" : ""} ${valid === true ? "text-blue-500 border-blue-500" : valid === false ? "text-red-500 border-red-500" : ''}`}
+        className={`mb-3 w-full rounded-lg border shadow-xl ${!black ? "text-gray-400" : ""} ${id === "birthDate" ? "text-sm pl-1 pb-2 pt-2" : "p-2"} ${missingValue ? "text-red-500 border-red-500" : ""} ${valid === true ? "text-blue-500 border-blue-500" : valid === false ? "text-red-500 border-red-500" : ''}`}
         onChange={this.handleChange}
         inputMode={id === "phoneNr" || id === "height" || id === "weight" ? "numeric" : ""}
         required
