@@ -5,6 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { withAuth } from "../providers/AuthProvider";
 import apiClient from "../lib/apiClient";
 import Button from "../components/Button";
+import FormInput from "../components/FormInput";
 
 class AddPatient extends Component {
   constructor(props) {
@@ -31,7 +32,7 @@ class AddPatient extends Component {
     birthDate = moment(birthDate).toDate();
     conditions = conditions.split(",");
     try {
-      await apiClient.addNewPatient({ email, password, name, phoneNr, birthDate, weight, height, conditions });
+      const newUser = await apiClient.addNewPatient({ email, password, name, phoneNr, birthDate, weight, height, conditions });
       await toast.success('Patient added!', {
         position: "top-center",
         autoClose: 2000,
@@ -40,17 +41,18 @@ class AddPatient extends Component {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-      });  
-      this.setState({
-          email: "",
-          password: "",
-          name: "",
-          phoneNr: 0,
-          birthDate: undefined,
-          weight: 0,
-          height: 0,
-          conditions: [],
-        });
+      });
+      await this.setState({
+        email: "",
+        password: "",
+        name: "",
+        phoneNr: 0,
+        birthDate: undefined,
+        weight: 0,
+        height: 0,
+        conditions: [],
+      });
+      this.props.history.push(`/${newUser._id}`);
     } catch (e) {
       console.log(e)
     }
@@ -88,7 +90,7 @@ class AddPatient extends Component {
 
   render() {
     const { email, validEmail, password, validPassword, name, validName, phoneNr, birthDate, weight, height, conditions } = this.state;
-      
+    
     return (
       <div className="flex flex-col h-full justify-between items-center pt-8">
         <ToastContainer
@@ -104,110 +106,40 @@ class AddPatient extends Component {
         />
         <form onSubmit={this.handleFormSubmit} className="w-3/4">
           <label>Email</label>
-          <br />
-          <input
-            type="text"
-            id="email"
-            value={email}
-            placeholder="example@gmail.com"
-            className={`p-2 mb-3 w-full rounded-lg border shadow-xl ${validEmail === true ? "text-blue-500 border-blue-500" : validEmail === false ? "text-red-500 border-red-500" : ''}`}
-            required
-            onChange={this.handleChange}
-          />
-          <br />
+          <FormInput value={email} valid={validEmail} placeholder={"example@gmail.com"} changeAction={this.handleChange}>email</FormInput>
+          
           <label>Password</label>
-          <br />
-          <input
-            type="password"
-            id="password"
-            value={password}
-            placeholder="***************"
-            className={`p-2 mb-3 w-full rounded-lg border shadow-xl ${validPassword === true ? "text-blue-500 border-blue-500" : validPassword === false ? "text-red-500 border-red-500" : ''}`}
-            required
-            onChange={this.handleChange}
-          />
-          {validPassword === false ? <div className=" w-full text-xs">8 characters long, 1 number and 1 uppercase letter</div> : ''}
-          <br />
+          <FormInput value={password} valid={validPassword} placeholder={"*****************"} changeAction={this.handleChange}>password</FormInput>
+        
           <label>Full name</label>
-          <br />
-          <input
-            type="text"
-            id="name"
-            value={name}
-            placeholder="John Doe"
-            className={`p-2 mb-3 rounded-lg border shadow-xl ${validName === true ? "text-blue-500 border-blue-500" : validName === false ? "text-red-500 border-red-500" : ''}`}
-            required
-            onChange={this.handleChange}
-          />
-          <br />
+          <FormInput value={name} valid={validName} placeholder={"John Doe"} changeAction={this.handleChange}>name</FormInput>
          
           <div className="flex justify-between w-full">
             <div className="w-1/2 pr-1">
               <label>Birth date</label>
-              <br />
-              <input
-                type="date"
-                id="birthDate"
-                value={birthDate}
-                className="pt-2 pb-2 pl-1 mb-3 w-full rounded-lg shadow-xl text-sm  text-gray-400"
-                required
-                onChange={this.handleChange}
-                />
+              <FormInput value={birthDate} changeAction={this.handleChange}>birthDate</FormInput>
             </div>
             <div className="w-1/2 pl-2">
               <label>Phone nr</label>
-              <br />
-              <input
-                type="number"
-                id="phoneNr"
-                value={phoneNr}
-                placeholder="938432565"
-                className="p-2 mb-3 w-full rounded-lg shadow-xl"
-                required
-                onChange={this.handleChange}
-              />
-              </div>
+              <FormInput value={phoneNr} placeholder={"938432565"} changeAction={this.handleChange}>phoneNr</FormInput>
+            </div>
           </div>
+          
           <div className="flex justify-between w-full">
             <div className="w-1/2 pr-2">
               <label>Height</label>
-              <br />
-              <input
-                type="number"
-                id="height"
-                value={height}
-                placeholder="167 cm"
-                className="p-2 mb-3 w-full rounded-lg shadow-xl"
-                required
-                onChange={this.handleChange}
-              />
+              <FormInput value={height} placeholder={"167 cm"} changeAction={this.handleChange}>height</FormInput>
             </div>
+
             <div className="w-1/2 pl-2">
               <label>Weight</label>
-              <br />
-              <input
-                type="number"
-                id="weight"
-                value={weight}
-                placeholder="64 kg"
-                className="p-2 mb-3 w-full rounded-lg shadow-xl"
-                required
-                onChange={this.handleChange}
-                />
-              </div>
+              <FormInput value={weight} placeholder={"64 kg"} changeAction={this.handleChange}>weight</FormInput>
+            </div>
           </div>
+
           <label>Conditions</label>
-          <br />
-          <input
-            type="text"
-            id="conditions"
-            value={conditions}
-            placeholder="Place commas between conditions"
-            className="p-2 mb-3 w-full rounded-lg shadow-xl"
-            required
-            onChange={this.handleChange}
-          />
-          <br />
+          <FormInput value={conditions} placeholder={"Place commas between conditions"} changeAction={this.handleChange}>conditions</FormInput>
+
           <div className="w-full text-center">
             <Button input>Add patient</Button>
           </div>

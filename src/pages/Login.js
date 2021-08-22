@@ -87,12 +87,15 @@ class Login extends Component {
         /> : ""}
         <form onSubmit={this.handleFormSubmit} className="w-4/5">
           <label>E-mail</label>
-          <FormInput value={email} missingValue={ missingEmail} valid changeAction={this.handleChange}>email</FormInput>
+          <FormInput value={email} missingValue={missingEmail} valid changeAction={this.handleChange}>email</FormInput>
+          
           <label>Password</label>
-          <FormInput value={password} missingValue={ missingPassword} valid changeAction={this.handleChange}>password</FormInput>
+          <FormInput value={password} missingValue={missingPassword} valid changeAction={this.handleChange}>password</FormInput>
+          
           <div className="w-full text-center mt-7">
             <Button input>Log in</Button>
           </div>
+          
         </form>
       </div>
     );
