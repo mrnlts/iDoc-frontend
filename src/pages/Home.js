@@ -5,7 +5,10 @@ import { faHouseUser, faSearch, faStethoscope, faUserPlus, faCalendar } from '@f
 
 import apiClient from '../lib/apiClient';
 import authClient from '../lib/authClient';
+
+
 import Button from '../components/Button';
+import FormInput from '../components/FormInput';
 
 class Home extends Component {
 	constructor(props) {
@@ -75,15 +78,17 @@ class Home extends Component {
 						</ul>
 					</div>
 					:
-					<div className="mt-7 border border-blue-300 ml-0">
+					<div className="mt-7 border border-blue-300">
 						<form>
-							<FontAwesomeIcon icon={faSearch} className="relative left-7 text-white"/>
-							<input placeholder="Search patient" className="rounded-md w-60 shadow-xl bg-blue-300 p-2 pl-12 placeholder-white text-white" value={ patientQuery } onChange={this.handleChange} />
+							<FontAwesomeIcon icon={faSearch} className="relative top-8 -left-24 text-white"/>
+							<FormInput black blue sixty value={patientQuery} placeholder={"Search patient"} changeAction={this.handleChange}>searchBar</FormInput>
 						</form>
 						<div className="ml-3">
 							{patientsShown.length > 0 ? <div className="bg-white bg-opacity-50 p-2 pl-12 rounded-md w-60 flex flex-col m-auto items-baseline"> {patientsShown.map((patient, index) => <Link to={`/${patient.id}`} key={index}>{patient.name}</Link>)}</div> : ''}
 						</div>
+						<div className="relative -left-2">
 							<Link to="/addpatient" ><FontAwesomeIcon icon={faUserPlus} className="relative left-8 text-white mt-7" /><Button big>Add new patient</Button></Link>
+						</div>
 					</div>}
 			</div>
 		);

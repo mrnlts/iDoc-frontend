@@ -25,13 +25,14 @@ class FormInput extends Component {
   
   render() {
     const { value, missingValue } = this.state;
-    const { children, valid, placeholder, black, semi } = this.props;
+    const { children, valid, placeholder, black, blue, semi, sixty } = this.props;
     const { id } = children;
-    const style = `mb-3 w-full rounded-lg border shadow-xl ${!black ? "text-gray-400" : ""} ${id === "birthDate" ? "text-sm pl-1 pb-2 pt-2" : "p-2"} ${missingValue ? "text-red-500 border-red-500" : ""} ${valid === true ? "text-blue-500 border-blue-500" : valid === false ? "text-red-500 border-red-500" : ''}`;
+    const style = `mb-3 w-full rounded-lg border shadow-xl ${!black ? "text-gray-400" : ""} ${blue ? "bg-blue-300 border-blue-300 placeholder-white text-white pl-12" : ""} ${id === "birthDate" ? "text-sm pl-1 pb-2 pt-2" : "p-2"} ${missingValue ? "text-red-500 border-red-500" : ""} ${valid === true ? "text-blue-500 border-blue-500" : valid === false ? "text-red-500 border-red-500" : ''}`;
+    const type = id === "email" ? "text" : id === "password" ? "password" : id === "birthDate" || id === "reqDate" ? "date" : id === "phoneNr" || id === "height" || id === "weight" ? "number" : "text";
     
-    return <div className={semi ? "w-2/3" : ""}>
+    return <div className={`m-auto ${semi ? "w-2/3" : sixty ? "w-60" : ""}`}>
       <input
-        type={id === "email" ? "text" : id === "password" ? "password" : id === "birthDate" || id === "reqDate" ? "date" : id === "phoneNr" || id === "height" || id === "weight" ? "number" : "text"}
+        type={type}
         id={id}
         value={value}
         placeholder={placeholder}
