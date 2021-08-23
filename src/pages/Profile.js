@@ -101,8 +101,8 @@ class Profile extends Component {
         <div className="w-full flex flex-col justify-center items-center">
           <p className="text-xl font-bold mb-3">Contact info</p>
           <form onSubmit={this.handleFormSubmit} className="w-3/4">
-            <label>Email </label>
-            <FormInput black value={email} changeAction={this.handleChange}>email</FormInput>
+            {email ? <label>Email </label> : ""}
+            {email ? <FormInput black value={email} changeAction={this.handleChange}>email</FormInput> : ""}
 
             {phoneNr ? <label>Phone Nr <br /></label> : ''}
             {phoneNr ? <FormInput black value={phoneNr} changeAction={this.handleChange}>phoneNr</FormInput> : ''}
