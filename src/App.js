@@ -31,7 +31,7 @@ class App extends Component {
 				<Background />
 				<Navbar />
 
-				<div className="h-5/6 mt-10">
+				<div className="h-5/6 mt-4">
 					<Switch>
 						<AnonRoute path="/about" component={About} />
 						<AnonRoute path="/signup" component={Signup} />
