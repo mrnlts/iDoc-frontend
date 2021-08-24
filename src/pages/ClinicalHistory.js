@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Button from '../components/Button';
 
 import apiClient from '../lib/apiClient';
 import ErrorPage from './ErrorPage';
@@ -131,8 +132,8 @@ class ClinicalHistory extends Component {
             </ul>
         </div>
         <div className="flex w-3/4">
-          <div className="w-full text-center"><Link to={`/${this.props.match.params.id}/edit`}><button  className="border border-blue-300 bg-blue-300 pt-2 pb-2 mb-2 rounded-lg w-20 shadow-xl">Update</button></Link></div>
-          <div className="w-full text-center"><button className="border border-blue-300 bg-blue-300 pt-2 pb-2 mb-2 rounded-lg w-20 shadow-xl" onClick={notify}>Delete</button></div>
+          <div className="w-full text-center"><Link to={`/${this.props.match.params.id}/edit`}><Button black small>Update</Button></Link></div>
+          <div className="w-full text-center"><Button black small clickAction={notify}>Delete</Button></div>
         </div>
       </div>
     )

@@ -6,6 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import authClient from '../lib/authClient';
 import apiClient from '../lib/apiClient';
+import Button from '../components/Button';
+import FormInput from '../components/FormInput';
 
 class EditClinicalHistory extends Component {
   constructor(props) {
@@ -17,7 +19,7 @@ class EditClinicalHistory extends Component {
       height: '',
       weight: '',
       conditions: [],
-      newCondition: ''
+      newCondition: '',
     }
   }
 
@@ -34,7 +36,7 @@ class EditClinicalHistory extends Component {
     }
   }
 
-  handleFormSubmit = async (event) => {
+    handleFormSubmit = async (event) => {
     event.preventDefault();
     const { id } = this.props.match.params;
     const { name, height, weight, conditions } = this.state;
@@ -60,7 +62,7 @@ class EditClinicalHistory extends Component {
   deleteCondition = (event) => {
     event.preventDefault();
     const { conditions } = this.state;
-    const index = conditions.findIndex((condition) => condition === event.target.parentNode.innerHTML.split("<")[0].trim());
+    const index = conditions.findIndex((condition) => condition === event.target.parentNode.parentNode.innerText);
     conditions.splice(index, 1);
     return this.setState({ conditions });
   }
@@ -76,9 +78,9 @@ class EditClinicalHistory extends Component {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-      });
-      
+      }); 
     }
+
 		if (isLoading) {
 			return <div>Loading ... </div>;
     }
@@ -97,55 +99,37 @@ class EditClinicalHistory extends Component {
           pauseOnHover
         />
         <span className="text-5xl text-white bg-blue-300 p-5 rounded-full"><FontAwesomeIcon icon={faPencilAlt} /></span>
-        <form onSubmit={this.handleFormSubmit} className="w-3/4">
-        <label>Name</label>
-        <br />
-        <input type="text"className="p-2 mb-3 w-full rounded-lg shadow-xl" id="name" value={name} onChange={this.handleChange}/>
-        <br />
-        <label>Height</label>
-        <br />
-        <input type="number"className="p-2 mb-3 w-full rounded-lg shadow-xl" id="height" value={height} onChange={this.handleChange}/>
-        <br />
-        <label>Weight</label>
-        <br />
-        <input value={weight} className="p-2 mb-3 w-full rounded-lg shadow-xl" id="weight" onChange={this.handleChange}/>
-        <br />
-        <label>Conditions</label>
-        <ul className="bg-white p-2 mb-3 w-full rounded-lg shadow-xl">
-          {conditions.length === 0 ? "No conditions registered yet" : conditions.map((condition, index) => {
-            return (condition.length >= 1) ? <li key={index}>{condition}   <span onClick={this.deleteCondition}> <FontAwesomeIcon className="text-gray-500" icon={faTimesCircle} /></span></li> : ''
-          })
-          }
+        <form onSubmit={this.handleFormSubmit} className="w-3/4" encType="multipart/form-data">
+          <label>Name</label>
+          <FormInput value={name} black changeAction={this.handleChange}>name</FormInput>
+          
+          <label>Height</label>
+          <FormInput value={height} black changeAction={this.handleChange}>height</FormInput>
+          
+          <label>Weight</label>
+          <FormInput value={weight} black changeAction={this.handleChange}>weight</FormInput>
+        
+          <label>Conditions</label>
+          <ul className="bg-white p-2 mb-3 w-full rounded-lg shadow-xl">
+            {conditions.length === 0 ? "No conditions registered yet" : conditions.map((condition, index) => {
+              return (condition.length >= 1) ? <li key={index}>{condition} <span onClick={this.deleteCondition}> <FontAwesomeIcon className="text-gray-500" value={ index} icon={faTimesCircle} /></span></li> : ''
+            })
+            }
           </ul>
-          <div className="flex justify-between">
-            <input
-              type="text"
-              className="p-2 w-2/3 rounded-lg shadow-xl"
-              id="newCondition"
-              placeholder="Type new condition"
-              value={newCondition}
-              onChange={this.handleChange}
-            />
-            <input
-              type="submit"
-              className="bg-gray-400 w-1/4 text-sm p-2 rounded-lg shadow-xl"
-              value="Add"
-              onClick={this.addCondition}
-            />
-            </div>
-          <div className="w-full text-center">
-            <input
-              type="submit"
-              className="border border-blue-300 mt-3 bg-blue-300 pt-2 pb-2 rounded-lg w-1/3 shadow-xl"
-              value="Update" onClick={notify} />
+            
+          <div className="flex justify-between h-11">
+            <FormInput value={newCondition} semi black placeholder={"Type new condition"} changeAction={this.handleChange}>newCondition</FormInput>
+            <Button input black gray small clickAction={this.addCondition}>Add</Button>
+          </div>
+            
+          <div className="w-full text-center mt-7">
+            <Button input black clickAction={notify} />
           </div>
         </form>
-        <br />
+        
       </div>
     )
-  
   }
-
 }
 
 export default EditClinicalHistory;

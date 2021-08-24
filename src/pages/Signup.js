@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { withAuth } from "../providers/AuthProvider";
 import specialtiesArr from '../data';
+
+import Button from "../components/Button";
+import FormInput from "../components/FormInput";
 class Signup extends Component {
   constructor(props) {
     super(props)
@@ -60,44 +63,15 @@ class Signup extends Component {
       <div className="flex flex-col h-screen justify-evenly items-center">
         <form onSubmit={this.handleFormSubmit}>
           <label>Email</label>
-          <br />
-          <input
-            type="text"
-            id="email"
-            value={email}
-            required
-            placeholder="example@gmail.com"
-            className={`p-2 mb-3 w-full rounded-lg border shadow-xl ${validEmail === true ? "text-blue-500 border-blue-500" : validEmail === false ? "text-red-500 border-red-500" : '' }`}
-            onChange={this.handleChange}
-          />
-          <br />
+          <FormInput value={email} placeholder={"example@gmail.com"} valid={validEmail} changeAction={this.handleChange}>email</FormInput>
+          
           <label>Password</label>
-          <br />
-          <input
-            type="password"
-            id="password"
-            value={password}
-            required
-            placeholder="********"
-            className={`p-2 mb-3 w-full rounded-lg border shadow-xl ${validPassword === true ? "text-blue-500 border-blue-500" : validPassword === false ? "text-red-500 border-red-500" : '' }`}
-            onChange={this.handleChange}
-          />
-          {validPassword === false ? <div className=" w-full text-xs">8 characters long, 1 number and 1 uppercase letter</div> : ''}
-          <br />
+          <FormInput value={password} placeholder={"***********"} valid={validPassword} changeAction={this.handleChange}>password</FormInput>
+          
           <label>Full name</label>
-          <br />
-          <input
-            type="text"
-            id="name"
-            value={name}
-            required
-            placeholder="John Doe"
-            className={`p-2 mb-3 rounded-lg border shadow-xl ${validName === true ? "text-blue-500 border-blue-500" : validName === false ? "text-red-500 border-red-500" : '' }`}
-            onChange={this.handleChange}
-          />
-          <br />
+          <FormInput value={name} placeholder={"John Doe"} valid={validName} changeAction={this.handleChange}>name</FormInput>
+          
           <label>Specialty</label>
-          <br />
           <select
             size="2"
             value={specialty}
@@ -112,13 +86,9 @@ class Signup extends Component {
                   )
             }
           </select>
-          <br />
+          
           <div className="w-full text-center">
-          <input
-            type="submit"
-            value="Signup"
-            className="border border-blue-300 bg-blue-300 pt-2 pb-2 rounded-lg w-52 shadow-xl"
-            />
+          <Button input>Signup</Button>
             </div>
         </form>
       </div>

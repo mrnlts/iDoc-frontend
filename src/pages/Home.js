@@ -6,6 +6,10 @@ import { faHouseUser, faSearch, faStethoscope, faUserPlus, faCalendar } from '@f
 import apiClient from '../lib/apiClient';
 import authClient from '../lib/authClient';
 
+
+import Button from '../components/Button';
+import FormInput from '../components/FormInput';
+
 class Home extends Component {
 	constructor(props) {
 		super(props)
@@ -54,7 +58,7 @@ class Home extends Component {
 			return <div>loading ... </div>;
 		}
 		return (
-			<div className="flex flex-col w-full h-screen justify-evenly items-center text-center">
+			<div className="flex flex-col w-full h-full justify-evenly items-center text-center">
 				<div>
 				<span className="text-5xl text-white bg-blue-300 p-5 rounded-full">{isProfessional ? <FontAwesomeIcon icon={faStethoscope} /> : <FontAwesomeIcon icon={faHouseUser} />}</span>
 					<p className="text-xl mt-7 font-bold">Welcome back, {isProfessional ? "Dr. "+name.split(" ")[1] : name.split(" ")[0] }!</p>
@@ -74,15 +78,17 @@ class Home extends Component {
 						</ul>
 					</div>
 					:
-					<div className="mt-7 border border-blue-300 ml-0">
+					<div className="mt-7 border border-blue-300">
 						<form>
-							<FontAwesomeIcon icon={faSearch} className="relative left-7 text-white"/>
-							<input placeholder="Search patient" className="rounded-md w-60 shadow-xl bg-blue-300 p-2 pl-12 placeholder-white text-white" value={ patientQuery } onChange={this.handleChange} />
+							<FontAwesomeIcon icon={faSearch} className="relative top-8 -left-24 text-white"/>
+							<FormInput black blue sixty value={patientQuery} placeholder={"Search patient"} changeAction={this.handleChange}>searchBar</FormInput>
 						</form>
 						<div className="ml-3">
 							{patientsShown.length > 0 ? <div className="bg-white bg-opacity-50 p-2 pl-12 rounded-md w-60 flex flex-col m-auto items-baseline"> {patientsShown.map((patient, index) => <Link to={`/${patient.id}`} key={index}>{patient.name}</Link>)}</div> : ''}
 						</div>
-							<Link to="/addpatient" ><FontAwesomeIcon icon={faUserPlus} className="relative left-8 text-white" /><button className="mt-7 rounded-md w-60 shadow-xl bg-blue-300 p-2 text-white">Add new patient</button></Link>
+						<div className="relative -left-2">
+							<Link to="/addpatient" ><FontAwesomeIcon icon={faUserPlus} className="relative left-8 text-white mt-7" /><Button big>Add new patient</Button></Link>
+						</div>
 					</div>}
 			</div>
 		);

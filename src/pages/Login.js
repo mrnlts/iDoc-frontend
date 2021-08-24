@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import { withAuth } from "../providers/AuthProvider";
+import Button from "../components/Button";
+import FormInput from "../components/FormInput";
 
 class Login extends Component {
   constructor(props) {
@@ -62,8 +64,9 @@ class Login extends Component {
   };
 
   handleChange = event => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
+    const { id, value } = event.target;
+    this.setState({ [id]: value });
+    console.log(this.state)
   };
 
   render() {
@@ -81,39 +84,21 @@ class Login extends Component {
           pauseOnFocusLoss={false}
           draggable
           pauseOnHover
-        /> : ""}
-        <form onSubmit={this.handleFormSubmit}>
-            <label>E-mail</label>
-            <br />
-          <input
-            type="text"
-            name="email"
-              value={email}
-              placeholder="example@gmail.com"
-              className={`p-2 mb-3 w-full rounded-lg border shadow-xl ${ missingEmail ? "text-red-500 border-red-500" : ""} `}
-              onChange={this.handleChange}
-            />
-            <br />
-            <label>Password</label>
-            <br />
-          <input
-            type="password"
-            name="password"
-              value={password}
-              placeholder="*****************"
-              className={`p-2 mb-3 w-full rounded-lg border shadow-xl ${ missingPassword ? "text-red-500 border-red-500" : ""} `}
-            onChange={this.handleChange}
-            />
-            <br />
-            <div className="w-full text-center">
-            <input
-              type="submit"
-              value="Login"
-              className="border border-blue-300 bg-blue-300 pt-2 pb-2 rounded-lg w-52 shadow-xl"
-              />
-              </div>
-          </form>
-        </div>
+          /> : ""}
+        
+        <form onSubmit={this.handleFormSubmit} className="w-4/5">
+          <label>E-mail</label>
+          <FormInput value={email} placeholder={"example@gmail.com"} missingValue={missingEmail} changeAction={this.handleChange}>email</FormInput>
+          
+          <label>Password</label>
+          <FormInput value={password} placeholder={"*****************"} missingValue={missingPassword} changeAction={this.handleChange}>password</FormInput>
+          
+          <div className="w-full text-center mt-7">
+            <Button input black>Log in</Button>
+          </div>
+          
+        </form>
+      </div>
     );
   }
 }
